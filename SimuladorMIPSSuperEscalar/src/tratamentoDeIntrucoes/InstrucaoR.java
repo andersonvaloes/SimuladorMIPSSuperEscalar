@@ -7,6 +7,7 @@ abstract public class InstrucaoR  implements Instrucao{
 	int rt;
 	int rd;
 	int funct;
+	boolean ehEspeculativo = false;
 	String instrucao;
 	public InstrucaoR(int r1, int r2, int r3) {
 		rs = r1;
@@ -21,5 +22,16 @@ abstract public class InstrucaoR  implements Instrucao{
 	public int getOpCode() {
 		return opCode;
 	}
-	
+	@Override
+	public boolean ehEspeculativo() {
+		return ehEspeculativo;
+	}
+	@Override
+	public void setEspeculativo() {
+		ehEspeculativo = true;
+	}
+	@Override
+	public void freeEspeculativo() {
+		ehEspeculativo = false;
+	}
 }
