@@ -9,7 +9,7 @@ public final class FactoryDeInstrucao {
 				case "100000":
 					return new InstrucaoROpAdd(getRs(s), getRt(s), getRd(s));
 				case "011000":
-					return new InstrucaoROpMUL(getRs(s), getRt(s), getRd(s));
+					return new InstrucaoROpMul(getRs(s), getRt(s), getRd(s));
 				case "000000":
 					return new InstrucaoROpNop(getRs(s), getRt(s), getRd(s));
 				case "100010":

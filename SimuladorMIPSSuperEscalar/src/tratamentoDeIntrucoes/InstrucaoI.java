@@ -1,14 +1,21 @@
 package tratamentoDeIntrucoes;
 
-abstract public class InstrucaoJ implements Instrucao{
+abstract public class InstrucaoI implements Instrucao{
 	int nByte;
-	int opCode = 2;
-	int target;
+	int opCode;
+	int rs;
+	int rt;
+	int immediate;
 	boolean ehEspeculativo = false;
 	String instrucao;
 	
-	public InstrucaoJ(int t) {
-		target = t;
+	
+	
+	public InstrucaoI(int r1, int r2, int r3, int r4) {
+		opCode = r1;
+		rs = r2;
+		rt = r3;
+		immediate = r4;
 	}
 	
 	@Override
