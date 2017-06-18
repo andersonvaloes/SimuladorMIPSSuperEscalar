@@ -3,6 +3,8 @@ package tratamentoDeIntrucoes;
 public class FactoryDeInstrucao {
 	
 	public static Instrucao getInstrucao(String s){
+		
+		//Intrucao tipo R
 		if(getOpCode(s).equals("000000")){
 			switch (getFunct(s)){
 				case "100000":
@@ -15,6 +17,31 @@ public class FactoryDeInstrucao {
 					return new InstrucaoROpSub(getRs(s), getRt(s), getRd(s));					
 			}
 		}
+		
+		//Intrucao tipo I
+		switch (getOpCode(s)){
+			case "001000":
+				return new InstrucaoIOpAddi(Integer.parseInt(getOpCode(s)), 
+						getRs(s), getRt(s), getImmediate(s));
+			case "000101":
+				return new InstrucaoIOpBeq(Integer.parseInt(getOpCode(s)), 
+						getRs(s), getRt(s), getImmediate(s));
+			case "000111":
+				return new InstrucaoIOpBle(Integer.parseInt(getOpCode(s)), 
+						getRs(s), getRt(s), getImmediate(s));
+				
+			case "000100":
+				return new InstrucaoIOpBne(Integer.parseInt(getOpCode(s)), 
+						getRs(s), getRt(s), getImmediate(s));
+			case "100011": 
+				return new InstrucaoIOpLw(Integer.parseInt(getOpCode(s)), 
+						getRs(s), getRt(s), getImmediate(s));
+			case "101011":
+			return new InstrucaoIOpSw(Integer.parseInt(getOpCode(s)), 
+					getRs(s), getRt(s), getImmediate(s));
+		}
+		
+		//Intrucao tipo J
 		if(getFunct(s).equals("000010"))
 			return new InstrucaoJOpJmp(getImmediate(s));
 		
