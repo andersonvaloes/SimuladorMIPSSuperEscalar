@@ -16,6 +16,10 @@ abstract public class InstrucaoJ implements Instrucao{
 		return nByte;
 	}
 	@Override
+	public void setNbyte(int i) {
+		nByte = i;
+	}
+	@Override
 	public int getOpCode() {
 		return opCode;
 	}
@@ -30,5 +34,13 @@ abstract public class InstrucaoJ implements Instrucao{
 	@Override
 	public void freeEspeculativo() {
 		ehEspeculativo = false;
+	}
+	@Override
+	public String getInstrucao() {
+		return instrucao;
+	}
+	@Override
+	public void setInstrucao(String s) {
+		instrucao = s;
 	}
 }

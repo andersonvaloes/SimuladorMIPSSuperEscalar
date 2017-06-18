@@ -9,8 +9,6 @@ abstract public class InstrucaoI implements Instrucao{
 	boolean ehEspeculativo = false;
 	String instrucao;
 	
-	
-	
 	public InstrucaoI(int r1, int r2, int r3, int r4) {
 		opCode = r1;
 		rs = r2;
@@ -21,6 +19,10 @@ abstract public class InstrucaoI implements Instrucao{
 	@Override
 	public int getNbyte() {
 		return nByte;
+	}
+	@Override
+	public void setNbyte(int i) {
+		nByte = i;
 	}
 	@Override
 	public int getOpCode() {
@@ -37,5 +39,13 @@ abstract public class InstrucaoI implements Instrucao{
 	@Override
 	public void freeEspeculativo() {
 		ehEspeculativo = false;
+	}
+	@Override
+	public String getInstrucao() {
+		return instrucao;
+	}
+	@Override
+	public void setInstrucao(String s) {
+		instrucao = s;
 	}
 }

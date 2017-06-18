@@ -1,9 +1,8 @@
 package tratamentoDeIntrucoes;
 
-public final class FactoryDeInstrucao {
+public class FactoryDeInstrucao {
 	
 	public static Instrucao getInstrucao(String s){
-		
 		if(getOpCode(s).equals("000000")){
 			switch (getFunct(s)){
 				case "100000":
@@ -15,10 +14,10 @@ public final class FactoryDeInstrucao {
 				case "100010":
 					return new InstrucaoROpSub(getRs(s), getRt(s), getRd(s));					
 			}
-			if(s.substring(26, 31).equals("100000"))
-				return new InstrucaoROpAdd(1,2,3);
-		}else
-			return new InstrucaoROpAdd(1,2,3);
+		}
+		if(getFunct(s).equals("000010"))
+			return new InstrucaoJOpJmp(getImmediate(s));
+		
 		return new InstrucaoROpAdd(1,2,3);
 	}
 	
@@ -37,6 +36,8 @@ public final class FactoryDeInstrucao {
 	private static int getRd(String s){
 		return Integer.parseInt(s.substring(16,20),2);
 	}
-	
+	private static int getImmediate(String s){
+		return Integer.parseInt(s.substring(6, 31), 2);
+	}
 	
 }
