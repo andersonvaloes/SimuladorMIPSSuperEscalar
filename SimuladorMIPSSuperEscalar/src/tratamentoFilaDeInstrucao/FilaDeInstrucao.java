@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import tratamentoDeIntrucoes.Instrucao;
 
 public class FilaDeInstrucao {
-
-	ArrayList<Instrucao> fila = new ArrayList<>();
+	ArrayList<Instrucao> fila;
+	public FilaDeInstrucao(String arquivo) {
+		fila = SetDeEntradaDeInstrucoes.getSetIntrucaoDaEntrada(arquivo);
+	}
 	
 }
