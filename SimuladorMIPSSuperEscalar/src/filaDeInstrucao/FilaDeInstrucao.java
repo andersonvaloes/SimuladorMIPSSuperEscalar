@@ -1,7 +1,8 @@
-package tratamentoFilaDeInstrucao;
+package filaDeInstrucao;
 
 import java.util.ArrayList;
-import tratamentoDeIntrucoes.Instrucao;
+
+import intrucoes.Instrucao;
 
 public class FilaDeInstrucao {
 	ArrayList<Instrucao> fila;

@@ -1,4 +1,4 @@
-package tratamentoDeIntrucoes;
+package intrucoes;
 
 public class InstrucaoROpAdd extends InstrucaoR implements Instrucao{	
 	public InstrucaoROpAdd(int r1, int r2, int r3) {

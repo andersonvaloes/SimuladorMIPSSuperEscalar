@@ -1,4 +1,4 @@
-package tratamentoFilaDeInstrucao;
+package filaDeInstrucao;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
-import tratamentoDeIntrucoes.FactoryDeInstrucao;
-import tratamentoDeIntrucoes.Instrucao;
+import intrucoes.FactoryDeInstrucao;
+import intrucoes.Instrucao;
 
 public class SetDeEntradaDeInstrucoes {
 	

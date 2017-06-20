@@ -1,16 +1,19 @@
-package tratamentoDeIntrucoes;
+package intrucoes;
 
-abstract public class InstrucaoJ implements Instrucao{
+abstract public class InstrucaoR  implements Instrucao{
 	int nByte;
-	int opCode = 2;
-	int target;
+	int opCode = 0;
+	int rs;
+	int rt;
+	int rd;
+	int funct;
 	boolean ehEspeculativo = false;
 	String instrucao;
-	
-	public InstrucaoJ(int t) {
-		target = t;
+	public InstrucaoR(int r1, int r2, int r3) {
+		rs = r1;
+		rt = r2;
+		rd = r3;
 	}
-	
 	@Override
 	public int getNbyte() {
 		return nByte;

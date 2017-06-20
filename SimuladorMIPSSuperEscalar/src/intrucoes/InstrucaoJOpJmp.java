@@ -1,4 +1,4 @@
-package tratamentoDeIntrucoes;
+package intrucoes;
 
 public class InstrucaoJOpJmp extends InstrucaoJ implements Instrucao{
 

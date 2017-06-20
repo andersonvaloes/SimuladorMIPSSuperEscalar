@@ -1,4 +1,4 @@
-package tratamentoDeIntrucoes;
+package intrucoes;
 
 public class InstrucaoIOpBle extends InstrucaoI implements Instrucao {
 

@@ -2,8 +2,9 @@ package debbug;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import org.junit.Test;
-import tratamentoDeIntrucoes.FactoryDeInstrucao;
-import tratamentoDeIntrucoes.Instrucao;
+
+import intrucoes.FactoryDeInstrucao;
+import intrucoes.Instrucao;
 
 
 public class TestantoInstrucao {
