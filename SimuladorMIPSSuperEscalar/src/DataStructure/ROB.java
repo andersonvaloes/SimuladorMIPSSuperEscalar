@@ -10,9 +10,6 @@ public class ROB {
 		if (robList.size()>=10){
 			return true;
 		}
-		
 		return false;
 	}
-	
-	
 }

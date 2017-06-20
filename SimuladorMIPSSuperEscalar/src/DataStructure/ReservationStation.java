@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class ReservationStation {
 	
 	ArrayList loadList = new ArrayList<RSNode>();
-	ArrayList storeList = new ArrayList<RSNode>();
 	ArrayList addList = new ArrayList<RSNode>();
 	ArrayList multList = new ArrayList<RSNode>();
 	
@@ -17,13 +16,6 @@ public class ReservationStation {
 		return false;
 	}
 	
-	public boolean isFullStore(){
-		if(storeList.size()>=5){
-			return true;
-		}
-		
-		return false;
-	}
 	
 	public boolean isFullAdd(){
 		if(addList.size()>=5){

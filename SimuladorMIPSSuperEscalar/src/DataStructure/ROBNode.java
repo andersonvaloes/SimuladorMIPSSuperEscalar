@@ -2,7 +2,7 @@ package DataStructure;
 
 public class ROBNode {
 	
-	int entrada;
+	int ID;
 	boolean busy;
 	String instruction;
 	String state;
