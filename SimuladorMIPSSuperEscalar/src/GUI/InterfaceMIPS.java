@@ -210,4 +210,5 @@ public class InterfaceMIPS {
 		btnNewButton.setBounds(705, 7, 89, 25);
 		frame.getContentPane().add(btnNewButton);
 	}
+	
 }

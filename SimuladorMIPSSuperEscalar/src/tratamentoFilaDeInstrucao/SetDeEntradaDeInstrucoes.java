@@ -13,6 +13,7 @@ public class SetDeEntradaDeInstrucoes {
 	
 	public static ArrayList<Instrucao> getSetIntrucaoDaEntrada(String s){
 		String linha;
+		//s = "/home/spider/git/SimuladorMIPSSuperEscalar/SimuladorMIPSSuperEscalar/src/tratamentoFilaDeInstrucao/entrada";
 		ArrayList<Instrucao> list = new ArrayList<Instrucao>();
 		try {
 			FileReader arq = new FileReader(s);
@@ -28,6 +29,9 @@ public class SetDeEntradaDeInstrucoes {
 			e.printStackTrace();
 		}
 		
-		return null;
+		return list;
 	}
+	/*public static void main(String[] args) {
+		ArrayList<Instrucao> s = SetDeEntradaDeInstrucoes.getSetIntrucaoDaEntrada("");
+	}*/
 }
