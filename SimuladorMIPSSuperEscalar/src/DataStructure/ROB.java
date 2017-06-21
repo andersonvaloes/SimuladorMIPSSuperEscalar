@@ -4,7 +4,11 @@ import java.util.ArrayList;
 
 public class ROB {
 	
-	ArrayList<ROBNode> robList = new ArrayList<ROBNode>(10);
+	private ArrayList<ROBNode> robList = new ArrayList<ROBNode>(10);
+	
+	public ArrayList<ROBNode> getROBList(){
+		return robList;
+	}
 	
 	public void clearAll(){
 		robList.clear();

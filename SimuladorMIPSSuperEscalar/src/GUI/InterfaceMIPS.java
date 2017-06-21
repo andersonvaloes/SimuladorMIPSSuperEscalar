@@ -34,6 +34,14 @@ public class InterfaceMIPS{
 	private JLabel lblRegs;
 	private JTable tableClock;
 	private JTable table;
+	
+	public JTable getTableBuffer(){
+		return tableBuffer;
+	}
+	
+	public JTable getTableBuffer(){
+		return tableBuffer;
+	}
 
 	/**
 	 * Launch the application.

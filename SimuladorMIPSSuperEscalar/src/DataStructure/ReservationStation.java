@@ -4,9 +4,21 @@ import java.util.ArrayList;
 
 public class ReservationStation {
 	
-	ArrayList<RSNode> loadList = new ArrayList<RSNode>(5);
+	public ArrayList<RSNode> loadList = new ArrayList<RSNode>(5);
 	ArrayList<RSNode> addList = new ArrayList<RSNode>(3);
 	ArrayList<RSNode> multList = new ArrayList<RSNode>(3);
+	
+	public ArrayList<RSNode> getLoadList(){
+		return loadList;
+	}
+	
+	public ArrayList<RSNode> getAddList(){
+		return addList;
+	}
+	
+	public ArrayList<RSNode> getMultList(){
+		return multList;
+	}
 	
 	public void execute(){
 		for(int i = 0; i<5 ; i++){
