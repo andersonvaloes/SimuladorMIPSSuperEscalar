@@ -2,7 +2,7 @@ package DataStructure;
 
 import java.util.ArrayList;
 
-public class RegistrationStatus {
+public class RegisterStatus {
 	
 	ArrayList<Integer> reorder = new ArrayList<Integer>();
 	ArrayList<Boolean> busy = new ArrayList<Boolean>();

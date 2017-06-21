@@ -11,18 +11,19 @@ import intrucoes.Instrucao;
 
 public class SetDeEntradaDeInstrucoes {
 	
-	public static ArrayList<Instrucao> getSetIntrucaoDaEntrada(String s){
+	public static ArrayList<Instrucao> getSetIntrucaoDaEntrada(String arquivo){
 		String linha;
 		//s = "/home/spider/git/SimuladorMIPSSuperEscalar/SimuladorMIPSSuperEscalar/src/tratamentoFilaDeInstrucao/entrada";
 		ArrayList<Instrucao> list = new ArrayList<Instrucao>();
 		try {
-			FileReader arq = new FileReader(s);
+			FileReader arq = new FileReader(arquivo);
 			BufferedReader lerArq = new BufferedReader(arq);
 			while( (linha = lerArq.readLine()) != null){
 				//System.out.println(linha.split(";")[0]);
 				list.add(FactoryDeInstrucao.getInstrucao(linha.split(";")[0]));
 				//System.out.println(linha.split("; ")[1]);
 				list.get(list.size()-1).setInstrucao(linha.split("; ")[1]);
+				
 			}
 		} catch (Exception e){
 			JOptionPane.showMessageDialog(null, "Arquivo não encontrado", "Problema encontrado", JOptionPane.INFORMATION_MESSAGE);

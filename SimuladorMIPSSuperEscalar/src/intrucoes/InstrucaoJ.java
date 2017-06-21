@@ -1,11 +1,21 @@
 package intrucoes;
 
+import DataStructure.ROB;
+import DataStructure.RegisterStatus;
+import DataStructure.ReservationStation;
+
 abstract public class InstrucaoJ implements Instrucao{
 	int nByte;
 	int opCode = 2;
 	int target;
 	boolean ehEspeculativo = false;
 	String instrucao;
+	
+	
+	ROB rob;
+	ReservationStation ress;
+	RegisterStatus regs;
+	
 	
 	public InstrucaoJ(int t) {
 		target = t;
@@ -42,5 +52,13 @@ abstract public class InstrucaoJ implements Instrucao{
 	@Override
 	public void setInstrucao(String s) {
 		instrucao = s;
+	}
+	@Override
+	public void setReservationStation(ReservationStation s) {
+		ress = s;		
+	}
+	@Override
+	public void setRob(ROB r) {
+		rob = r;
 	}
 }
