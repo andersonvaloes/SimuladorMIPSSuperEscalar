@@ -4,9 +4,20 @@ import java.util.ArrayList;
 
 public class ReservationStation {
 	
-	ArrayList loadList = new ArrayList<RSNode>();
-	ArrayList addList = new ArrayList<RSNode>();
-	ArrayList multList = new ArrayList<RSNode>();
+	ArrayList<RSNode> loadList = new ArrayList<RSNode>(5);
+	ArrayList<RSNode> addList = new ArrayList<RSNode>(3);
+	ArrayList<RSNode> multList = new ArrayList<RSNode>(3);
+	
+	public void execute(){
+		for(int i = 0; i<5 ; i++){
+			loadList.get(i).execute();
+		}
+		for(int i = 0; i<3 ; i++){
+			addList.get(i).execute();
+			multList.get(i).execute();
+		}
+	}
+	
 	
 	public boolean isFullLoad(){
 		if(loadList.size()>=5){
@@ -18,7 +29,7 @@ public class ReservationStation {
 	
 	
 	public boolean isFullAdd(){
-		if(addList.size()>=5){
+		if(addList.size()>=3){
 			return true;
 		}
 		
@@ -26,7 +37,7 @@ public class ReservationStation {
 	}
 	
 	public boolean isFullMult(){
-		if(multList.size()>=5){
+		if(multList.size()>=3){
 			return true;
 		}
 		

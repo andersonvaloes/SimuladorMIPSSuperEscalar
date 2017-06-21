@@ -1,12 +1,20 @@
 package DataStructure;
 
+import intrucoes.Instrucao;
+
 public class ROBNode {
 	
-	int ID;
-	boolean busy;
-	String instruction;
-	String state;
-	String destination;
-	int value;
+	public int ID;
+	public boolean busy;
+	public String instruction;
+	public String state;
+	public int destination;
+	public int value;
+	public Instrucao _instrucao;
 	
+	public void setInstrucao (Instrucao instrucao){
+		_instrucao = instrucao;
+	}
+	
+	 
 }
