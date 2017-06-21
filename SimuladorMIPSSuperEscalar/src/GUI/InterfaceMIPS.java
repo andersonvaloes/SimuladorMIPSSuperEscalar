@@ -10,11 +10,20 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.border.LineBorder;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.ImageIcon;
+import javax.swing.AbstractAction;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
-public class InterfaceMIPS {
+import javax.swing.Action;
+
+public class InterfaceMIPS{
 
 	private JFrame frame;
 	private JTable tableEstReserva;
@@ -202,13 +211,39 @@ public class InterfaceMIPS {
 		table.setBounds(602, 49, 272, 82);
 		frame.getContentPane().add(table);
 		
-		JButton btnPlay = new JButton("Play by Step");
-		btnPlay.setBounds(602, 7, 98, 25);
+		JButton btnPlay = new JButton("");
+		btnPlay.setIcon(new ImageIcon(InterfaceMIPS.class.getResource("/Resources/Actions-arrow-right-icon.png")));
+		btnPlay.setBounds(602, 9, 22, 25);
 		frame.getContentPane().add(btnPlay);
 		
-		JButton btnNewButton = new JButton("Play Full");
-		btnNewButton.setBounds(705, 7, 89, 25);
-		frame.getContentPane().add(btnNewButton);
+		JButton btnPlayFull = new JButton("");
+		btnPlayFull.setIcon(new ImageIcon(InterfaceMIPS.class.getResource("/Resources/Actions-arrow-right-double-icon.png")));
+		btnPlayFull.setBounds(630, 9, 22, 25);
+		frame.getContentPane().add(btnPlayFull);
+		
+		JButton btnPaste = new JButton("");
+		btnPaste.setIcon(new ImageIcon(InterfaceMIPS.class.getResource("/Resources/folder-icon.png")));
+		btnPaste.setBounds(655, 9, 22, 25);
+		btnPaste.addActionListener(new ClassListener());
+		frame.getContentPane().add(btnPaste);
 	}
-	
+	public class ClassListener implements ActionListener {
+	    public void actionPerformed(ActionEvent e) {
+	    	JFileChooser fileChooser = new JFileChooser();
+	    	int returnVal = fileChooser.showOpenDialog((Component)e.getSource());
+	        if (returnVal == JFileChooser.APPROVE_OPTION) {
+	            File file = fileChooser.getSelectedFile();
+	            try {
+	              String filePath = file.getAbsolutePath();
+	              System.out.println("Caminho do arquivo: " + filePath);
+	            } catch (Exception ex) {
+	              System.out.println("problem accessing file"+file.getAbsolutePath());
+	            }
+	        } 
+	        else {
+	            System.out.println("File access cancelled by user.");
+	        }       
+	    }   
+	}
 }
+
