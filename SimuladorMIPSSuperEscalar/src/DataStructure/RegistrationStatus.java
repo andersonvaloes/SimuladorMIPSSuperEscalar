@@ -10,5 +10,4 @@ public class RegistrationStatus {
 	public boolean isFree (int ID){
 		return busy.get(ID);
 	}
-	
 }

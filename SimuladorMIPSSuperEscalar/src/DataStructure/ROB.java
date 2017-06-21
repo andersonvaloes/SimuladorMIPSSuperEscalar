@@ -6,6 +6,10 @@ public class ROB {
 	
 	ArrayList<ROBNode> robList = new ArrayList<ROBNode>(10);
 	
+	public void clearAll(){
+		robList.clear();
+	}
+	
 	public boolean isFull(){
 		if (robList.size()>=10){
 			return true;

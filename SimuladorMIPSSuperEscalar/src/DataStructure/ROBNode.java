@@ -16,5 +16,4 @@ public class ROBNode {
 		_instrucao = instrucao;
 	}
 	
-	 
 }
