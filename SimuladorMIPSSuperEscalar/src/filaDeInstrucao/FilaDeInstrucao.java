@@ -10,4 +10,8 @@ public class FilaDeInstrucao {
 		fila = SetDeEntradaDeInstrucoes.getSetIntrucaoDaEntrada(arquivo);
 	}
 	
+	public void emitir(){
+		
+	}
+	
 }

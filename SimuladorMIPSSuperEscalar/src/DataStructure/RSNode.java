@@ -15,4 +15,8 @@ public class RSNode {
 		_instrucao.execute();
 	}
 	
+	public void write(){
+		_instrucao.write();
+	}
+	
 }

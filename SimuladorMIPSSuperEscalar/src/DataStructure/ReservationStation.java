@@ -18,6 +18,16 @@ public class ReservationStation {
 		}
 	}
 	
+	public void write(){
+		for(int i = 0; i<5 ; i++){
+			loadList.get(i).write();
+		}
+		for(int i = 0; i<3 ; i++){
+			addList.get(i).write();
+			multList.get(i).write();
+		}
+	}
+	
 	
 	public boolean isFullLoad(){
 		if(loadList.size()>=5){
