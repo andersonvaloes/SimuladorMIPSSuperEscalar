@@ -11,5 +11,7 @@ public interface Instrucao {
 	
 	public void freeEspeculativo();
 	public boolean ehEspeculativo();
+	public void execute();
+	public void write();
 	
 }
