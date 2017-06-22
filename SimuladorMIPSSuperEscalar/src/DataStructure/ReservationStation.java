@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class ReservationStation {
 	
-	public ArrayList<RSNode> loadList = new ArrayList<RSNode>(5);
+	ArrayList<RSNode> loadList = new ArrayList<RSNode>(5);
 	ArrayList<RSNode> addList = new ArrayList<RSNode>(3);
 	ArrayList<RSNode> multList = new ArrayList<RSNode>(3);
 	

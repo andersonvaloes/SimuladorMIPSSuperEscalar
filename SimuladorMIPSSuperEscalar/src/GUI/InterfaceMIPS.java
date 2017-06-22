@@ -6,6 +6,15 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import DataStructure.Memoria;
+import DataStructure.ROB;
+import DataStructure.ROBNode;
+import DataStructure.RSNode;
+import DataStructure.RegisterStatus;
+import DataStructure.Registradores;
+import DataStructure.ReservationStation;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
@@ -20,6 +29,7 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.Action;
 
@@ -28,20 +38,84 @@ public class InterfaceMIPS{
 	private JFrame frame;
 	private JTable tableEstReserva;
 	private JLabel label;
-	private JTable tableBuffer;
+	private JTable tableROB;
 	private JLabel lblBuffer;
 	private JTable tableRegs;
 	private JLabel lblRegs;
 	private JTable tableClock;
-	private JTable table;
+	private JTable tableRegsValue;
+
+	private ArrayList<ROBNode> _robList = new ArrayList<ROBNode>();
+	private Memoria _memoria = new Memoria();
+	private ArrayList<RSNode> _rsLoadList = new ArrayList<RSNode>();
+	private ArrayList<RSNode> _rsAddList = new ArrayList<RSNode>();
+	private ArrayList<RSNode> _rsMultList = new ArrayList<RSNode>();
+	private Registradores _regs = new Registradores();
 	
-	public JTable getTableBuffer(){
-		return tableBuffer;
+	
+	public void setTableROB(ArrayList<ROBNode> robList){
+		_robList=robList;
+		for(int i = 0 ; i<10;i++){
+			tableROB.setValueAt(_robList.get(i).ID, i+1, 1);
+			tableROB.setValueAt(_robList.get(i).busy, i+1, 2);
+			tableROB.setValueAt(_robList.get(i).instruction, i+1, 3);
+			tableROB.setValueAt(_robList.get(i).state, i+1, 4);
+			tableROB.setValueAt(_robList.get(i).destination, i+1, 5);
+			tableROB.setValueAt(_robList.get(i).value, i+1, 6);
+		}
+		
 	}
 	
-	public JTable getTableBuffer(){
-		return tableBuffer;
+	public void setTableClock(){
+		
+		
 	}
+	
+	public void setTableRegs(Registradores regs){
+		_regs = regs;
+	}
+	
+	public void setTableRS(ArrayList<RSNode> rsLoadList,ArrayList<RSNode> rsAddList,ArrayList<RSNode> rsMultList){
+		_rsLoadList = rsLoadList;
+		_rsAddList=rsAddList;
+		_rsMultList=rsMultList;
+		for(int i = 0;i<4;i++){
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getBusy(), i+1, 3);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getInstrucao().getInstrucao(), i+1, 4);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getDest(), i+1, 5);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getVj(), i+1, 6);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getVk(), i+1, 7);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getQj(), i+1, 8);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getQk(), i+1, 9);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getA(), i+1, 10);
+		}
+		for(int i = 0;i<3;i++){
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getBusy(), i+6, 3);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getInstrucao().getInstrucao(), i+6, 4);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getDest(), i+6, 5);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getVj(), i+6, 6);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getVk(), i+6, 7);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getQj(), i+6, 8);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getQk(), i+6, 9);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getA(), i+6, 10);
+		}
+		for(int i = 0;i<2;i++){
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getBusy(), i+9, 3);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getInstrucao().getInstrucao(), i+9, 4);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getDest(), i+9, 5);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getVj(), i+9, 6);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getVk(), i+9, 7);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getQj(), i+9, 8);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getQk(), i+9, 9);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getA(), i+9, 10);
+		}
+		
+	}
+	
+	public void setTableMemoria(Memoria memoria){
+		_memoria=memoria;
+	}
+	
 
 	/**
 	 * Launch the application.
@@ -100,20 +174,20 @@ public class InterfaceMIPS{
 		frame.getContentPane().add(tableEstReserva);
 		tableEstReserva.setBorder(BorderFactory.createLineBorder(Color.black));
 		
-		JLabel lblEstReserva = new JLabel("Esta\u00E7\u00F5es de Reserva");
-		lblEstReserva.setBackground(new Color(240, 240, 240));
-		lblEstReserva.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblEstReserva.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEstReserva.setBounds(10, 0, 582, 34);
-		lblEstReserva.setBorder(BorderFactory.createLineBorder(Color.black));
-		frame.getContentPane().add(lblEstReserva);
+		JLabel lblReservStation = new JLabel("Esta\u00E7\u00F5es de Reserva");
+		lblReservStation.setBackground(new Color(240, 240, 240));
+		lblReservStation.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblReservStation.setHorizontalAlignment(SwingConstants.CENTER);
+		lblReservStation.setBounds(10, 0, 582, 34);
+		lblReservStation.setBorder(BorderFactory.createLineBorder(Color.black));
+		frame.getContentPane().add(lblReservStation);
 		
 		label = new JLabel("");
 		label.setBounds(10, 221, 108, 25);
 		frame.getContentPane().add(label);
 		
-		tableBuffer = new JTable();
-		tableBuffer.setModel(new DefaultTableModel(
+		tableROB = new JTable();
+		tableROB.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"Entrada ", "Ocupado", "Instru\u00E7\u00E3o", "Estado", "Destino", "Valor"},
 				{null, null, null, null, null, null},
@@ -131,9 +205,9 @@ public class InterfaceMIPS{
 				"Entrada", "Ocupado", "Inst", "Estado", "Dest", "Valor"
 			}
 		));
-		tableBuffer.setBounds(10, 253, 521, 176);
-		tableBuffer.setBorder(BorderFactory.createLineBorder(Color.black));
-		frame.getContentPane().add(tableBuffer);
+		tableROB.setBounds(10, 253, 521, 176);
+		tableROB.setBorder(BorderFactory.createLineBorder(Color.black));
+		frame.getContentPane().add(tableROB);
 		
 		lblBuffer = new JLabel("Buffer de Reordena\u00E7\u00E3o");
 		lblBuffer.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -200,9 +274,9 @@ public class InterfaceMIPS{
 		tableClock.setBorder(BorderFactory.createLineBorder(Color.black));
 		frame.getContentPane().add(tableClock);
 		
-		table = new JTable();
-		table.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table.setModel(new DefaultTableModel(
+		tableRegsValue = new JTable();
+		tableRegsValue.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tableRegsValue.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"Endere\u00E7o", "Valor"},
 				{null, null},
@@ -214,10 +288,10 @@ public class InterfaceMIPS{
 				"New column", "New column"
 			}
 		));
-		table.getColumnModel().getColumn(0).setPreferredWidth(216);
-		table.getColumnModel().getColumn(1).setPreferredWidth(85);
-		table.setBounds(602, 49, 272, 82);
-		frame.getContentPane().add(table);
+		tableRegsValue.getColumnModel().getColumn(0).setPreferredWidth(216);
+		tableRegsValue.getColumnModel().getColumn(1).setPreferredWidth(85);
+		tableRegsValue.setBounds(602, 49, 272, 82);
+		frame.getContentPane().add(tableRegsValue);
 		
 		JButton btnPlay = new JButton("");
 		btnPlay.setIcon(new ImageIcon(InterfaceMIPS.class.getResource("/Resources/Actions-arrow-right-icon.png")));

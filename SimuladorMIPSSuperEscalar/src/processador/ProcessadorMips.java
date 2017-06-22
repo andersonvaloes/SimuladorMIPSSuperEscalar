@@ -29,6 +29,11 @@ public class ProcessadorMips {
 		ArrayList<RSNode> rsAddList = RS.getAddList();
 		ArrayList<RSNode> rsMultList = RS.getMultList();
 		
+		GUI.setTableROB(robList);
+		GUI.setTableRS(rsLoadList,rsAddList,rsMultList);
+		GUI.setTableRegs(regs);
+		GUI.setTableMemoria(memoria);
+		GUI.setTableClock();
 		
 	}
 }
