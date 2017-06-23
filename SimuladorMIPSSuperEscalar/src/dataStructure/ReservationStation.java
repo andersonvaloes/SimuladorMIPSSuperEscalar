@@ -46,11 +46,13 @@ public class ReservationStation {
 	
 	public void write(){
 		for(int i = 0; i<5 ; i++){
-			loadList.get(i).write();
+			loadList.get(i).write(i);
 		}
 		for(int i = 0; i<3 ; i++){
-			addList.get(i).write();
-			multList.get(i).write();
+			multList.get(i).write(i);
+		}
+		for(int i = 0; i<3 ; i++){
+			addList.get(i).write(i);
 		}
 	}
 	

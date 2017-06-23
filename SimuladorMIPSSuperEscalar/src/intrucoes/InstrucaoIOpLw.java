@@ -95,4 +95,59 @@ public class InstrucaoIOpLw extends InstrucaoI implements Instrucao {
 		time--;
 		return false;
 	}
+	
+	@Override
+	public boolean write(int i) {
+		if(terminou){
+			ReorderBufferNode robnode = null;
+			for(ReorderBufferNode r : dataStructure_.getReorderBuffer_().getROBList()){
+				if(r._instrucao.equals(this))
+					robnode = r;
+			}
+			robnode.busy = false;
+			int b = dataStructure_.getReservationStation().getAddList().get(i).getDest();
+			dataStructure_.getReservationStation().getAddList().get(i).setBusy(false);
+		
+			for(ReservationStationNode r : dataStructure_.getReservationStation().getAddList()){
+				if(r.getQj() == b) {
+					r.setVj(robnode.value);
+					r.setQj(0);
+				}
+				
+				if(r.getQk() == b){
+					r.setVk(robnode.value);
+					r.setQk(0);
+				}
+			}
+			
+			for(ReservationStationNode r : dataStructure_.getReservationStation().getMultList()){
+				if(r.getQj() == b) {
+					r.setVj(robnode.value);
+					r.setQj(0);
+				}
+				
+				if(r.getQk() == b){
+					r.setVk(robnode.value);
+					r.setQk(0);
+				}
+			}
+		
+			for(ReservationStationNode r : dataStructure_.getReservationStation().getLoadList()){
+				if(r.getQj() == b) {
+					r.setVj(robnode.value);
+					r.setQj(0);
+				}
+				
+				if(r.getQk() == b){
+					r.setVk(robnode.value);
+					r.setQk(0);
+				}
+			}
+			dataStructure_.getReservationStation().getLoadList().remove(i);
+			return true;
+		}
+		
+		return false;
+	}
+	
 }

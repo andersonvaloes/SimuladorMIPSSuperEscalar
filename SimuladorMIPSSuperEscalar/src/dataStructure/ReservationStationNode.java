@@ -88,8 +88,8 @@ public class ReservationStationNode {
 		return _instrucao.execute(i);
 	}
 	
-	public void write(){
-		_instrucao.write();
+	public boolean write(int i){
+		return _instrucao.write(i);
 	}
 	
 }

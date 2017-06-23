@@ -21,6 +21,6 @@ public interface Instrucao {
 	
 	public boolean issue();
 	public boolean execute(int i);
-	public void write();
+	public boolean write(int i);
 	public void commit();
 }

@@ -84,5 +84,27 @@ public class InstrucaoIOpBle extends InstrucaoI implements Instrucao {
 		time--;
 		return false;
 	}
+	
+	@Override
+	public boolean write(int i) {
+		if(terminou){
+			ReorderBufferNode robnode = null;
+			for(ReorderBufferNode r : dataStructure_.getReorderBuffer_().getROBList()){
+				if(r._instrucao.equals(this))
+					robnode = r;
+			}
+			if(dataStructure_.getRegisters_().getReg(dataStructure_.getReservationStation().getAddList().get(i).getVj()) <=
+					dataStructure_.getRegisters_().getReg(dataStructure_.getReservationStation().getAddList().get(i).getVk()))
+					robnode.value = immediate_;
+			else
+				robnode.value = 1 + nByte_/4;
+			robnode.busy = false;
+			int b = dataStructure_.getReservationStation().getAddList().get(i).getDest();
+			dataStructure_.getReservationStation().getAddList().get(i).setBusy(false);
+			dataStructure_.getReservationStation().getAddList().remove(i);
+			return true;
+		}
+		return false;
+	}
 
 }

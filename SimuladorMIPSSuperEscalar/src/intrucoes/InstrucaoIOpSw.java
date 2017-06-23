@@ -84,5 +84,21 @@ public class InstrucaoIOpSw extends InstrucaoI implements Instrucao {
 		time--;
 		return false;
 	}
-	
+	@Override
+	public boolean write(int i) {
+		if(terminou){
+			ReorderBufferNode robnode = null;
+			for(ReorderBufferNode r : dataStructure_.getReorderBuffer_().getROBList()){
+				if(r._instrucao.equals(this))
+					robnode = r;
+			}
+			robnode.value = dataStructure_.getReservationStation().getAddList().get(i).getVk();
+			robnode.busy = false;
+			dataStructure_.getReservationStation().getLoadList().get(i).setBusy(false);
+			dataStructure_.getReservationStation().getLoadList().remove(i);
+			return true;
+		}
+		
+		return false;
+	}
 }
