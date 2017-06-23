@@ -8,6 +8,8 @@ public class ReservationStation {
 	ArrayList<ReservationStationNode> addList = new ArrayList<ReservationStationNode>(3);
 	ArrayList<ReservationStationNode> multList = new ArrayList<ReservationStationNode>(3);
 	private DataStructure dataStructure_;
+	boolean estaex1 = false;
+	boolean estaex2 = false;
 	
 	public ArrayList<ReservationStationNode> getLoadList(){
 		return loadList;
@@ -25,12 +27,20 @@ public class ReservationStation {
 	}
 	
 	public void execute(){
-		for(int i = 0; i<5 ; i++){
-			loadList.get(i).execute();
+		if(loadList.size()!=0)
+			loadList.get(0).execute(0);
+		
+		for(int i = 0; i<3 && !estaex1 ; i++){
+			if(addList.get(i).execute(i)){
+				estaex1 = true;
+				break;
+			}
 		}
-		for(int i = 0; i<3 ; i++){
-			addList.get(i).execute();
-			multList.get(i).execute();
+		for(int i = 0; i<3 && !estaex2; i++){
+			if(multList.get(i).execute(i)) {
+				estaex2 = true;
+				break;
+			}
 		}
 	}
 	

@@ -18,6 +18,8 @@ abstract public class InstrucaoR  implements Instrucao{
 	String instrucao_;
 	
 	DataStructure dataStructure_;
+	boolean iniciou = false;
+	boolean terminou = false;
 	
 	
 	public InstrucaoR(int rs, int rt, int rd) {
@@ -119,4 +121,8 @@ abstract public class InstrucaoR  implements Instrucao{
 		dataStructure_.getReservationStation().getAddList().add(rsNode);		
 		return true;
 	}
+	
+	
+	
+	
 }

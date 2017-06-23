@@ -84,8 +84,8 @@ public class ReservationStationNode {
 		return _A;
 	}
 	
-	public void execute(){
-		_instrucao.execute();
+	public boolean execute(int i){
+		return _instrucao.execute(i);
 	}
 	
 	public void write(){

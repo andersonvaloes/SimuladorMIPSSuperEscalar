@@ -20,7 +20,7 @@ public interface Instrucao {
 	public boolean ehEspeculativo();
 	
 	public boolean issue();
-	public void execute();
+	public boolean execute(int i);
 	public void write();
 	public void commit();
 }
