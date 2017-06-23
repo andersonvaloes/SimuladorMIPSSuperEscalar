@@ -64,12 +64,15 @@ public class InstrucaoIOpSw extends InstrucaoI implements Instrucao {
 	}
 	@Override
 	public boolean execute(int i) {
-		if(dataStructure_.getReservationStation().getAddList().get(i).getQj() != 0 ||
-				dataStructure_.getReservationStation().getAddList().get(i).getQk() != 0)return false;
+		if((dataStructure_.getReservationStation().getLoadList().get(i).getQj() != 0 ||
+				dataStructure_.getReservationStation().getLoadList().get(i).getQk() != 0) &&
+				dataStructure_.getReorderBuffer_().getROBList().get(0)._instrucao.equals(this))return false;
 		iniciou = true;
 		if(time == 0){
 			if(!terminou){
-				dataStructure_.getReorderBuffer_().getROBList().
+				dataStructure_.getReorderBuffer_().getROBList().get(0).value = 
+						dataStructure_.getReservationStation().getLoadList().get(i).getVj() +
+						dataStructure_.getReservationStation().getLoadList().get(i).getA();
 				//dataStructure_.getReservationStation().getAddList().get(i).setVj(dataStructure_.getRegisters_().getReg(dataStructure_.getReservationStation().getAddList().get(i).getVj()));
 				//dataStructure_.getReservationStation().getAddList().get(i).setVk(dataStructure_.getRegisters_().getReg(dataStructure_.getReservationStation().getAddList().get(i).getVk()));
 				terminou = true;

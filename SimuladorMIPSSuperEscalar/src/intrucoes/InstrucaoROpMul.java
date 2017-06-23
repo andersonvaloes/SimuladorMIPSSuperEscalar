@@ -73,13 +73,13 @@ public class InstrucaoROpMul extends InstrucaoR implements Instrucao{
 	}
 	@Override
 	public boolean execute(int i) {
-		if(dataStructure_.getReservationStation().getAddList().get(i).getQj() != 0 ||
-				dataStructure_.getReservationStation().getAddList().get(i).getQk() != 0)return false;
+		if(dataStructure_.getReservationStation().getMultList().get(i).getQj() != 0 ||
+				dataStructure_.getReservationStation().getMultList().get(i).getQk() != 0)return false;
 		iniciou = true;
 		if(time == 0){
 			if(!terminou){
-				dataStructure_.getReservationStation().getAddList().get(i).setVj(dataStructure_.getRegisters_().getReg(dataStructure_.getReservationStation().getAddList().get(i).getVj()));
-				dataStructure_.getReservationStation().getAddList().get(i).setVk(dataStructure_.getRegisters_().getReg(dataStructure_.getReservationStation().getAddList().get(i).getVk()));
+				dataStructure_.getReservationStation().getMultList().get(i).setVj(dataStructure_.getRegisters_().getReg(dataStructure_.getReservationStation().getAddList().get(i).getVj()));
+				dataStructure_.getReservationStation().getMultList().get(i).setVk(dataStructure_.getRegisters_().getReg(dataStructure_.getReservationStation().getAddList().get(i).getVk()));
 				terminou = true;
 				return true;
 			}else{

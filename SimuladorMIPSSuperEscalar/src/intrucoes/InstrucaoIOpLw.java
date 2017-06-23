@@ -65,13 +65,27 @@ public class InstrucaoIOpLw extends InstrucaoI implements Instrucao {
 	
 	@Override
 	public boolean execute(int i) {
-		if(dataStructure_.getReservationStation().getAddList().get(i).getQj() != 0 ||
-				dataStructure_.getReservationStation().getAddList().get(i).getQk() != 0)return false;
+		if(dataStructure_.getReservationStation().getLoadList().get(i).getQj() != 0 ||
+				dataStructure_.getReservationStation().getLoadList().get(i).getQk() != 0)return false;
+		
+		for(int j = 0; j < dataStructure_.getReorderBuffer_().getROBList().size();j++)
+			if(j<i && dataStructure_.getReorderBuffer_().getROBList().get(j)._instrucao.getOpCode() == Integer.parseInt("101011"))
+				return false;
+		
+		
 		iniciou = true;
 		if(time == 0){
 			if(!terminou){
-				dataStructure_.getReservationStation().getAddList().get(i).setVj(dataStructure_.getRegisters_().getReg(dataStructure_.getReservationStation().getAddList().get(i).getVj()));
-				dataStructure_.getReservationStation().getAddList().get(i).setVk(dataStructure_.getRegisters_().getReg(dataStructure_.getReservationStation().getAddList().get(i).getVk()));
+				ReorderBufferNode robnode = null;
+				for(ReorderBufferNode r : dataStructure_.getReorderBuffer_().getROBList()){
+					if(r._instrucao.equals(this))
+						robnode = r;
+				}
+				robnode.value = dataStructure_.getMemory_().getMem(
+						dataStructure_.getReservationStation().getLoadList().get(i).getA() +
+						dataStructure_.getReservationStation().getLoadList().get(i).getVj());
+				//dataStructure_.getReservationStation().getLoadList().get(i).setVj(dataStructure_.getRegisters_().getReg(dataStructure_.getReservationStation().getAddList().get(i).getVj()));
+				//dataStructure_.getReservationStation().getLoadList().get(i).setVk(dataStructure_.getRegisters_().getReg(dataStructure_.getReservationStation().getAddList().get(i).getVk()));
 				terminou = true;
 				return true;
 			}else{
