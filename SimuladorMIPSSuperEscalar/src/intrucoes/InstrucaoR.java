@@ -110,6 +110,9 @@ abstract public class InstrucaoR  implements Instrucao{
 			rsNode.setQk(0);
 		}
 		
+		dataStructure_.getRegisterStatus_().getReorder().set(rd_, b);
+		dataStructure_.getRegisterStatus_().getBusy().set(rd_, true);
+		
 		robNode.state = "Issue";
 		
 		dataStructure_.getReorderBuffer_().getROBList().add(robNode);
