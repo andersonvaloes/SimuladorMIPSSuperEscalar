@@ -1,6 +1,9 @@
 package dataStructure;
 
 public class DataStructure {
+	public int sPointer = 0;
+	public int pred = 0;
+	public double predType;
 	FilaDeInstrucao filaDeIntrucao_;
 	Memory memory_;
 	Registers registers_;

@@ -7,7 +7,6 @@ import intrucoes.Instrucao;
 public class FilaDeInstrucao {
 	ArrayList<Instrucao> fila_;
 	DataStructure dataStructure_;
-	int head_ = 0;
 	
 	public void setDataStructure(DataStructure dataStructure) {
 		this.dataStructure_ = dataStructure;
@@ -18,12 +17,8 @@ public class FilaDeInstrucao {
 	}
 	
 	public void issue(){
-		if(head_ < fila_.size()){
-			if(fila_.get(head_).issue()) head_++;
+		if(dataStructure_.sPointer < fila_.size()){
+			fila_.get(dataStructure_.sPointer).issue();
 		}
 	}
-	public void setHead(int nByte){
-		head_ = nByte/4;
-	}
-
 }

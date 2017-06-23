@@ -37,7 +37,7 @@ public class FactoryDeInstrucao {
 				return new InstrucaoIOpLw(Integer.parseInt(getOpCode(s)), 
 						getRs(s), getRt(s), getImmediate(s));
 			case "101011":
-			return new InstrucaoIOpSw(Integer.parseInt(getOpCode(s)), 
+				return new InstrucaoIOpSw(Integer.parseInt(getOpCode(s)), 
 					getRs(s), getRt(s), getImmediate(s));
 		}
 		
@@ -64,7 +64,7 @@ public class FactoryDeInstrucao {
 		return Integer.parseInt(s.substring(16,20),2);
 	}
 	private static int getImmediate(String s){
-		return Integer.parseInt(s.substring(6, 31), 2);
+		return (short)Integer.parseInt(s.substring(6, 31), 2);
 	}
 	
 }

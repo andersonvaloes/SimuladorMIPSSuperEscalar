@@ -59,6 +59,19 @@ public class ReorderBuffer {
 		robList.get(b).value=result;
 	}
 	
+	public boolean existStore(){
+		for(ReorderBufferNode n : robList)
+			if(n._instrucao.getOpCode() == Integer.parseInt("101011"))
+				return true;
+		return false;
+	}
+	
+	public ReorderBufferNode getNodeID(int id){
+		for(ReorderBufferNode n : robList)
+			if(n.ID == id)
+				return n;
+		return null;
+	}
 	/*public void commit(){
 		
 	}*/

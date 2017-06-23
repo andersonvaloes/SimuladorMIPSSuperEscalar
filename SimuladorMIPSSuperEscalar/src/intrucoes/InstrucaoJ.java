@@ -12,7 +12,7 @@ abstract public class InstrucaoJ implements Instrucao{
 	boolean ehEspeculativo_ = false;
 	String instrucao_;
 
-	private DataStructure dataStructure_;
+	DataStructure dataStructure_;
 	
 	
 	public InstrucaoJ(int target) {
@@ -52,16 +52,5 @@ abstract public class InstrucaoJ implements Instrucao{
 		this.dataStructure_ = dataStructure;
 		
 	}
-	/*@Override
-	public void setInstrucao(String s) {
-		instrucao = s;
-	}
-	@Override
-	public void setReservationStation(ReservationStation s) {
-		ress = s;		
-	}
-	@Override
-	public void setRob(ReorderBuffer r) {
-		rob = r;
-	}*/
+	
 }

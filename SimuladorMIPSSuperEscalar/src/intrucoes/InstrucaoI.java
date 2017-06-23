@@ -18,6 +18,8 @@ abstract public class InstrucaoI implements Instrucao{
 	
 	
 	DataStructure dataStructure_;
+	boolean iniciou = false;
+	boolean terminou = false;
 	
 	//Construtor
 	public InstrucaoI(int opCode, int rs, int rt, int immediate) {
@@ -64,4 +66,5 @@ abstract public class InstrucaoI implements Instrucao{
 		this.dataStructure_ = dataStructure;
 		
 	}
+	
 }
