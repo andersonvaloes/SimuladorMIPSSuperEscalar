@@ -1,14 +1,14 @@
-package DataStructure;
+package dataStructure;
 
 import intrucoes.Instrucao;
 
-public class RSNode {
+public class ReservationStationNode {
 	
 	Instrucao _instrucao;
 	boolean _busy;
 	String _op;
 	int _Vj,_Vk;
-	String _Qj,_Qk;
+	int _Qj,_Qk;
 	int _dest;
 	int _A;
 	
@@ -36,11 +36,11 @@ public class RSNode {
 		_Vk=Vk;
 	}
 	
-	public void setQj(String Qj){
+	public void setQj(int Qj){
 		_Qj=Qj;
 	}
 	
-	public void setQk(String Qk){
+	public void setQk(int Qk){
 		_Qk=Qk;
 	}
 	
@@ -72,11 +72,11 @@ public class RSNode {
 		return _Vk;
 	}
 	
-	public String getQk(){
+	public int getQk(){
 		return _Qk;
 	}
 	
-	public String getQj(){
+	public int getQj(){
 		return _Qj;
 	}
 	

@@ -1,13 +1,19 @@
-package DataStructure;
+package dataStructure;
 
 import java.util.ArrayList;
 
-public class ROB {
+public class ReorderBuffer {
 	
-	private ArrayList<ROBNode> robList = new ArrayList<ROBNode>(10);
+	private ArrayList<ReorderBufferNode> robList = new ArrayList<ReorderBufferNode>(10);
+	private DataStructure dataStructure_;
+	int head_ = 0, tail_ = 0;
+	boolean containsElement = false;
 	
-	public ArrayList<ROBNode> getROBList(){
+	public ArrayList<ReorderBufferNode> getROBList(){
 		return robList;
+	}
+	public void setDataStructure(DataStructure dataStructure) {
+		this.dataStructure_ = dataStructure;
 	}
 	
 	public void clearAll(){
@@ -52,4 +58,8 @@ public class ROB {
 	public void setValue (int b, int result){
 		robList.get(b).value=result;
 	}
+	
+	/*public void commit(){
+		
+	}*/
 }

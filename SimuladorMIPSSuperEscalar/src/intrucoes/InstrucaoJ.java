@@ -1,55 +1,58 @@
 package intrucoes;
 
-import DataStructure.ROB;
-import DataStructure.RegisterStatus;
-import DataStructure.ReservationStation;
+import dataStructure.DataStructure;
+import dataStructure.RegisterStatus;
+import dataStructure.ReorderBuffer;
+import dataStructure.ReservationStation;
 
 abstract public class InstrucaoJ implements Instrucao{
-	int nByte;
-	int opCode = 2;
-	int target;
-	boolean ehEspeculativo = false;
-	String instrucao;
+	int nByte_;
+	int opCode_ = 2;
+	int target_;
+	boolean ehEspeculativo_ = false;
+	String instrucao_;
+
+	private DataStructure dataStructure_;
 	
 	
-	ROB rob;
-	ReservationStation ress;
-	RegisterStatus regs;
-	
-	
-	public InstrucaoJ(int t) {
-		target = t;
+	public InstrucaoJ(int target) {
+		target_ = target;
 	}
 	
 	@Override
 	public int getNbyte() {
-		return nByte;
+		return nByte_;
 	}
 	@Override
 	public void setNbyte(int i) {
-		nByte = i;
+		nByte_ = i;
 	}
 	@Override
 	public int getOpCode() {
-		return opCode;
+		return opCode_;
 	}
 	@Override
 	public boolean ehEspeculativo() {
-		return ehEspeculativo;
+		return ehEspeculativo_;
 	}
 	@Override
 	public void setEspeculativo() {
-		ehEspeculativo = true;
+		ehEspeculativo_ = true;
 	}
 	@Override
 	public void freeEspeculativo() {
-		ehEspeculativo = false;
+		ehEspeculativo_ = false;
 	}
 	@Override
 	public String getInstrucao() {
-		return instrucao;
+		return instrucao_;
 	}
 	@Override
+	public void setDataStructure(DataStructure dataStructure) {
+		this.dataStructure_ = dataStructure;
+		
+	}
+	/*@Override
 	public void setInstrucao(String s) {
 		instrucao = s;
 	}
@@ -58,7 +61,7 @@ abstract public class InstrucaoJ implements Instrucao{
 		ress = s;		
 	}
 	@Override
-	public void setRob(ROB r) {
+	public void setRob(ReorderBuffer r) {
 		rob = r;
-	}
+	}*/
 }

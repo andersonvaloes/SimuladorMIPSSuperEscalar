@@ -1,23 +1,27 @@
-package DataStructure;
+package dataStructure;
 
 import java.util.ArrayList;
 
 public class ReservationStation {
 	
-	ArrayList<RSNode> loadList = new ArrayList<RSNode>(5);
-	ArrayList<RSNode> addList = new ArrayList<RSNode>(3);
-	ArrayList<RSNode> multList = new ArrayList<RSNode>(3);
+	ArrayList<ReservationStationNode> loadList = new ArrayList<ReservationStationNode>(5);
+	ArrayList<ReservationStationNode> addList = new ArrayList<ReservationStationNode>(3);
+	ArrayList<ReservationStationNode> multList = new ArrayList<ReservationStationNode>(3);
+	private DataStructure dataStructure_;
 	
-	public ArrayList<RSNode> getLoadList(){
+	public ArrayList<ReservationStationNode> getLoadList(){
 		return loadList;
 	}
 	
-	public ArrayList<RSNode> getAddList(){
+	public ArrayList<ReservationStationNode> getAddList(){
 		return addList;
 	}
 	
-	public ArrayList<RSNode> getMultList(){
+	public ArrayList<ReservationStationNode> getMultList(){
 		return multList;
+	}
+	public void setDataStructure(DataStructure dataStructure) {
+		this.dataStructure_ = dataStructure;
 	}
 	
 	public void execute(){
@@ -64,6 +68,9 @@ public class ReservationStation {
 		}
 		
 		return false;
+	}
+	public void addAddNode(ReservationStationNode rs){
+		addList.add(rs);
 	}
 
 }

@@ -7,13 +7,13 @@ import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import DataStructure.Memoria;
-import DataStructure.ROB;
-import DataStructure.ROBNode;
-import DataStructure.RSNode;
-import DataStructure.RegisterStatus;
-import DataStructure.Registradores;
-import DataStructure.ReservationStation;
+import dataStructure.Memory;
+import dataStructure.RegisterStatus;
+import dataStructure.Registers;
+import dataStructure.ReorderBuffer;
+import dataStructure.ReorderBufferNode;
+import dataStructure.ReservationStation;
+import dataStructure.ReservationStationNode;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -45,15 +45,15 @@ public class InterfaceMIPS{
 	private JTable tableClock;
 	private JTable tableRegsValue;
 
-	private ArrayList<ROBNode> _robList = new ArrayList<ROBNode>();
-	private Memoria _memoria = new Memoria();
-	private ArrayList<RSNode> _rsLoadList = new ArrayList<RSNode>();
-	private ArrayList<RSNode> _rsAddList = new ArrayList<RSNode>();
-	private ArrayList<RSNode> _rsMultList = new ArrayList<RSNode>();
-	private Registradores _regs = new Registradores();
+	private ArrayList<ReorderBufferNode> _robList = new ArrayList<ReorderBufferNode>();
+	private Memory _memoria = new Memory();
+	private ArrayList<ReservationStationNode> _rsLoadList = new ArrayList<ReservationStationNode>();
+	private ArrayList<ReservationStationNode> _rsAddList = new ArrayList<ReservationStationNode>();
+	private ArrayList<ReservationStationNode> _rsMultList = new ArrayList<ReservationStationNode>();
+	private Registers _regs = new Registers();
 	
 	
-	public void setTableROB(ArrayList<ROBNode> robList){
+	public void setTableROB(ArrayList<ReorderBufferNode> robList){
 		_robList=robList;
 		for(int i = 0 ; i<10;i++){
 			tableROB.setValueAt(_robList.get(i).ID, i+1, 1);
@@ -71,11 +71,11 @@ public class InterfaceMIPS{
 		
 	}
 	
-	public void setTableRegs(Registradores regs){
+	public void setTableRegs(Registers regs){
 		_regs = regs;
 	}
 	
-	public void setTableRS(ArrayList<RSNode> rsLoadList,ArrayList<RSNode> rsAddList,ArrayList<RSNode> rsMultList){
+	public void setTableRS(ArrayList<ReservationStationNode> rsLoadList,ArrayList<ReservationStationNode> rsAddList,ArrayList<ReservationStationNode> rsMultList){
 		_rsLoadList = rsLoadList;
 		_rsAddList=rsAddList;
 		_rsMultList=rsMultList;
@@ -112,7 +112,7 @@ public class InterfaceMIPS{
 		
 	}
 	
-	public void setTableMemoria(Memoria memoria){
+	public void setTableMemoria(Memory memoria){
 		_memoria=memoria;
 	}
 	

@@ -1,8 +1,8 @@
-package DataStructure;
+package dataStructure;
 
-public class Registradores {
+public class Registers {
 	int[] reg = new int[32];
-	public Registradores(){
+	public Registers(){
 		reg[1] = 0;
 	}
 	public int getReg(int i) {

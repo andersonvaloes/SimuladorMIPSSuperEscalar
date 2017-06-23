@@ -1,8 +1,8 @@
-package DataStructure;
+package dataStructure;
 
 import intrucoes.Instrucao;
 
-public class ROBNode {
+public class ReorderBufferNode {
 	
 	public int ID;
 	public boolean busy;

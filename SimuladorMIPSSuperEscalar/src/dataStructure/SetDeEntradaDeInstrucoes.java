@@ -1,4 +1,4 @@
-package filaDeInstrucao;
+package dataStructure;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -11,19 +11,17 @@ import intrucoes.Instrucao;
 
 public class SetDeEntradaDeInstrucoes {
 	
-	public static ArrayList<Instrucao> getSetIntrucaoDaEntrada(String arquivo){
+	public static ArrayList<Instrucao> getSetIntrucaoDaEntrada(String arquivo, DataStructure dataStructure ){
 		String linha;
-		//s = "/home/spider/git/SimuladorMIPSSuperEscalar/SimuladorMIPSSuperEscalar/src/tratamentoFilaDeInstrucao/entrada";
 		ArrayList<Instrucao> list = new ArrayList<Instrucao>();
 		try {
 			FileReader arq = new FileReader(arquivo);
 			BufferedReader lerArq = new BufferedReader(arq);
 			while( (linha = lerArq.readLine()) != null){
-				//System.out.println(linha.split(";")[0]);
 				list.add(FactoryDeInstrucao.getInstrucao(linha.split(";")[0]));
-				//System.out.println(linha.split("; ")[1]);
 				list.get(list.size()-1).setInstrucao(linha.split("; ")[1]);
-				
+				list.get(list.size()-1).setNbyte((list.size()-1)*4);
+				list.get(list.size()-1).setDataStructure(dataStructure);				
 			}
 		} catch (Exception e){
 			JOptionPane.showMessageDialog(null, "Arquivo não encontrado", "Problema encontrado", JOptionPane.INFORMATION_MESSAGE);
@@ -32,7 +30,4 @@ public class SetDeEntradaDeInstrucoes {
 		
 		return list;
 	}
-	/*public static void main(String[] args) {
-		ArrayList<Instrucao> s = SetDeEntradaDeInstrucoes.getSetIntrucaoDaEntrada("");
-	}*/
 }

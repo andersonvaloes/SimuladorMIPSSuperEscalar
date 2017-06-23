@@ -1,72 +1,105 @@
 package intrucoes;
 
-import DataStructure.ROB;
-import DataStructure.RegisterStatus;
-import DataStructure.ReservationStation;
+import dataStructure.DataStructure;
+import dataStructure.RegisterStatus;
+import dataStructure.ReorderBuffer;
+import dataStructure.ReorderBufferNode;
+import dataStructure.ReservationStation;
+import dataStructure.ReservationStationNode;
 
 abstract public class InstrucaoI implements Instrucao{
-	int nByte;
-	int opCode;
-	int rs;
-	int rt;
-	int immediate;
-	boolean ehEspeculativo = false;
-	String instrucao;
+	int nByte_;
+	int opCode_;
+	int rs_;
+	int rt_;
+	int immediate_;
+	boolean ehEspeculativo_ = false;
+	String instrucao_;
 	
-	ROB rob;
-	ReservationStation ress;
-	RegisterStatus regs;
+	
+	DataStructure dataStructure_;
 	
 	//Construtor
-	public InstrucaoI(int r1, int r2, int r3, int r4) {
-		opCode = r1;
-		rs = r2;
-		rt = r3;
-		immediate = r4;
+	public InstrucaoI(int opCode, int rs, int rt, int immediate) {
+		opCode_ = opCode;
+		rs_ = rs;
+		rt_ = rt;
+		immediate_ = immediate;
 	}
 	
 	@Override
 	public int getNbyte() {
-		return nByte;
+		return nByte_;
 	}
 	@Override
 	public void setNbyte(int i) {
-		nByte = i;
+		nByte_ = i;
 	}
 	@Override
 	public int getOpCode() {
-		return opCode;
+		return opCode_;
 	}
 	@Override
 	public boolean ehEspeculativo() {
-		return ehEspeculativo;
+		return ehEspeculativo_;
 	}
 	@Override
 	public void setEspeculativo() {
-		ehEspeculativo = true;
+		ehEspeculativo_ = true;
 	}
 	@Override
 	public void freeEspeculativo() {
-		ehEspeculativo = false;
+		ehEspeculativo_ = false;
 	}
 	@Override
 	public String getInstrucao() {
-		return instrucao;
+		return instrucao_;
 	}
 	@Override
 	public void setInstrucao(String s) {
-		instrucao = s;
+		instrucao_ = s;
 	}
 	@Override
-	public void setReservationStation(ReservationStation s) {
-		ress = s;		
+	public void setDataStructure(DataStructure dataStructure) {
+		this.dataStructure_ = dataStructure;
+		
 	}
-	@Override
-	public void setRob(ROB r) {
-		rob = r;
-	}
-	@Override
-	public void setRegisterStatus(RegisterStatus rs) {
-		regs = rs;
-	}
+	/*@Override
+	public boolean issue() {
+		if(dataStructure_.getReservationStation().isFullAdd() || 
+				dataStructure_.getReorderBuffer_().isFull()) return false;
+		
+		ReservationStationNode rsNode = new ReservationStationNode();
+		
+		rsNode.setVj(rs_);
+		rsNode.setQj(0);
+		
+		rsNode.setBusy(true);
+		rsNode.setInstrucao(this);
+		rsNode.setOp(instrucao_);
+		
+		
+		int pos;
+		pos = dataStructure_.getReorderBuffer_().getROBList().size();
+		ReorderBufferNode robNode = new ReorderBufferNode();
+		rsNode.setDest(pos);
+		robNode._instrucao = this;
+		robNode.instruction = instrucao_;
+		//robNode.destination = rd_;
+		robNode.busy = true;
+		if(dataStructure_.getReorderBuffer_().getROBList().size() == 0)
+			robNode.ID = 0;
+		else
+			robNode.ID = dataStructure_.getReorderBuffer_().getROBList().get(dataStructure_.getReorderBuffer_().getROBList().size()-1).ID++;
+		
+		
+		rsNode.setVk(rs_);
+		rsNode.setQk(0);
+		
+		robNode.state = "Issue";
+		
+		dataStructure_.getReorderBuffer_().getROBList().add(robNode);
+		dataStructure_.getReservationStation().getAddList().add(rsNode);		
+		return true;
+	}*/
 }
