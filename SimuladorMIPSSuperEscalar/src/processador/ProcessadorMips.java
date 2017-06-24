@@ -62,9 +62,9 @@ public class ProcessadorMips {
 		GUI.setTableROB(dataStructure.getReorderBuffer_().getROBList());
 		GUI.setTableRS(dataStructure.getReservationStation().getLoadList(),dataStructure.getReservationStation().getAddList(),
 				dataStructure.getReservationStation().getMultList());
-		GUI.setTableRegs(dataStructure.getRegisters_());
+		GUI.setTableRegs(dataStructure.getRegisterStatus_());
 		GUI.setTableMemoria(dataStructure.getMemory_());
-		GUI.setTableClock();
+		//GUI.setTableClock();
 		
 	}
 	
