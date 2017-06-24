@@ -52,6 +52,8 @@ public class InterfaceMIPS{
 	private ArrayList<ReservationStationNode> _rsAddList = new ArrayList<ReservationStationNode>();
 	private ArrayList<ReservationStationNode> _rsMultList = new ArrayList<ReservationStationNode>();
 	private Registers _regs = new Registers();
+	private RegisterStatus _regsStatus = new RegisterStatus();
+	
 	ProcessadorMips p;
 	
 	public void setTableROB(ArrayList<ReorderBufferNode> robList){
@@ -68,13 +70,17 @@ public class InterfaceMIPS{
 		
 	}
 	
-	public void setTableClock(){
-		
-		
-	}
 	
-	public void setTableRegs(Registers regs){
-		_regs = regs;
+	public void setTableRegs(RegisterStatus regsStatus){
+		_regsStatus = regsStatus;
+		int j = 0;
+		for(int k = 1 ; k<11 ; k=k+3){
+			for(int i = 1;i<8 ;i++){
+				tableRegs.setValueAt(_regsStatus.getBusy().get(j), i, k);
+				tableRegs.setValueAt(_regsStatus.getReorder().get(j), i, k+1);
+				j++;
+			}
+		}
 	}
 	
 	public void setTableRS(ArrayList<ReservationStationNode> rsLoadList,ArrayList<ReservationStationNode> rsAddList,ArrayList<ReservationStationNode> rsMultList){
@@ -82,34 +88,34 @@ public class InterfaceMIPS{
 		_rsAddList=rsAddList;
 		_rsMultList=rsMultList;
 		for(int i = 0;i<4 && _rsLoadList.size()<i;i++){
-			tableEstReserva.setValueAt(_rsLoadList.get(i).getBusy(), i+1, 3);
-			tableEstReserva.setValueAt(_rsLoadList.get(i).getInstrucao().getInstrucao(), i+1, 4);
-			tableEstReserva.setValueAt(_rsLoadList.get(i).getDest(), i+1, 5);
-			tableEstReserva.setValueAt(_rsLoadList.get(i).getVj(), i+1, 6);
-			tableEstReserva.setValueAt(_rsLoadList.get(i).getVk(), i+1, 7);
-			tableEstReserva.setValueAt(_rsLoadList.get(i).getQj(), i+1, 8);
-			tableEstReserva.setValueAt(_rsLoadList.get(i).getQk(), i+1, 9);
-			tableEstReserva.setValueAt(_rsLoadList.get(i).getA(), i+1, 10);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getBusy(), i+1, 2);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getInstrucao().getInstrucao(), i+1, 3);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getDest(), i+1, 4);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getVj(), i+1, 5);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getVk(), i+1, 6);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getQj(), i+1, 7);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getQk(), i+1, 8);
+			tableEstReserva.setValueAt(_rsLoadList.get(i).getA(), i+1, 9);
 		}
 		for(int i = 0;i<3 && _rsAddList.size()<i;i++){
-			tableEstReserva.setValueAt(_rsAddList.get(i).getBusy(), i+6, 3);
-			tableEstReserva.setValueAt(_rsAddList.get(i).getInstrucao().getInstrucao(), i+6, 4);
-			tableEstReserva.setValueAt(_rsAddList.get(i).getDest(), i+6, 5);
-			tableEstReserva.setValueAt(_rsAddList.get(i).getVj(), i+6, 6);
-			tableEstReserva.setValueAt(_rsAddList.get(i).getVk(), i+6, 7);
-			tableEstReserva.setValueAt(_rsAddList.get(i).getQj(), i+6, 8);
-			tableEstReserva.setValueAt(_rsAddList.get(i).getQk(), i+6, 9);
-			tableEstReserva.setValueAt(_rsAddList.get(i).getA(), i+6, 10);
+			tableEstReserva.setValueAt(_rsAddList.get(i).getBusy(), i+6, 2);
+			tableEstReserva.setValueAt(_rsAddList.get(i).getInstrucao().getInstrucao(), i+6, 3);
+			tableEstReserva.setValueAt(_rsAddList.get(i).getDest(), i+6, 4);
+			tableEstReserva.setValueAt(_rsAddList.get(i).getVj(), i+6, 5);
+			tableEstReserva.setValueAt(_rsAddList.get(i).getVk(), i+6, 6);
+			tableEstReserva.setValueAt(_rsAddList.get(i).getQj(), i+6, 7);
+			tableEstReserva.setValueAt(_rsAddList.get(i).getQk(), i+6, 8);
+			tableEstReserva.setValueAt(_rsAddList.get(i).getA(), i+6, 9);
 		}
 		for(int i = 0;i<2 && _rsMultList.size()<i;i++){
-			tableEstReserva.setValueAt(_rsMultList.get(i).getBusy(), i+9, 3);
-			tableEstReserva.setValueAt(_rsMultList.get(i).getInstrucao().getInstrucao(), i+9, 4);
-			tableEstReserva.setValueAt(_rsMultList.get(i).getDest(), i+9, 5);
-			tableEstReserva.setValueAt(_rsMultList.get(i).getVj(), i+9, 6);
-			tableEstReserva.setValueAt(_rsMultList.get(i).getVk(), i+9, 7);
-			tableEstReserva.setValueAt(_rsMultList.get(i).getQj(), i+9, 8);
-			tableEstReserva.setValueAt(_rsMultList.get(i).getQk(), i+9, 9);
-			tableEstReserva.setValueAt(_rsMultList.get(i).getA(), i+9, 10);
+			tableEstReserva.setValueAt(_rsMultList.get(i).getBusy(), i+9, 2);
+			tableEstReserva.setValueAt(_rsMultList.get(i).getInstrucao().getInstrucao(), i+9, 3);
+			tableEstReserva.setValueAt(_rsMultList.get(i).getDest(), i+9, 4);
+			tableEstReserva.setValueAt(_rsMultList.get(i).getVj(), i+9, 5);
+			tableEstReserva.setValueAt(_rsMultList.get(i).getVk(), i+9, 6);
+			tableEstReserva.setValueAt(_rsMultList.get(i).getQj(), i+9, 7);
+			tableEstReserva.setValueAt(_rsMultList.get(i).getQk(), i+9, 8);
+			tableEstReserva.setValueAt(_rsMultList.get(i).getA(), i+9, 9);
 		}
 		
 	}
@@ -304,7 +310,7 @@ public class InterfaceMIPS{
 		JButton btnPlayFull = new JButton("");
 		btnPlayFull.setIcon(new ImageIcon(InterfaceMIPS.class.getResource("/Resources/Actions-arrow-right-double-icon.png")));
 		btnPlayFull.setBounds(630, 9, 22, 25);
-		btnPlayFull.addActionListener(new ClassListener());
+		btnPlayFull.addActionListener(new ClassListenerPlayFull());
 		frame.getContentPane().add(btnPlayFull);
 		
 		JButton btnPaste = new JButton("");
@@ -319,6 +325,15 @@ public class InterfaceMIPS{
 	    public void actionPerformed(ActionEvent e) {
 	    	
 	    	p.RunClock();
+	    	
+	    }   
+	}
+	
+	public class ClassListenerPlayFull implements ActionListener {
+		
+	    public void actionPerformed(ActionEvent e) {
+	    	
+	    	tableROB.setValueAt("teste", 1, 1);
 	    	
 	    }   
 	}
