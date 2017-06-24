@@ -4,13 +4,16 @@ public class FactoryDeInstrucao {
 	
 	public static Instrucao getInstrucao(String s){
 		
+		System.out.println(getFunct(s));
+		
 		//Intrucao tipo R
 		if(getOpCode(s).equals("000000")){
 			switch (getFunct(s)){
 				case "100000":
 					return new InstrucaoROpAdd(getRs(s), getRt(s), getRd(s));
-				case "011000":
+				case "011000":{
 					return new InstrucaoROpMul(getRs(s), getRt(s), getRd(s));
+					}
 				case "000000":
 					return new InstrucaoROpNop(getRs(s), getRt(s), getRd(s));
 				case "100010":
@@ -49,7 +52,7 @@ public class FactoryDeInstrucao {
 	}
 	
 	private static String getFunct(String s) {
-		return s.substring(26, 31);
+		return s.substring(26, 32);
 	}
 	private static String getOpCode(String s){
 		//System.out.println(s.substring(0, 6));

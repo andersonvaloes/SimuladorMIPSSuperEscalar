@@ -11,7 +11,15 @@ abstract public class InstrucaoJ implements Instrucao{
 	int target_;
 	boolean ehEspeculativo_ = false;
 	String instrucao_;
+	public boolean mudou = false;
 
+	public boolean isMudou() {
+		return mudou;
+	}
+
+	public void setMudou(boolean mudou) {
+		this.mudou = mudou;
+	}
 	DataStructure dataStructure_;
 	
 	
@@ -57,5 +65,6 @@ abstract public class InstrucaoJ implements Instrucao{
 		// TODO Auto-generated method stub
 		
 	}
+	
 	
 }

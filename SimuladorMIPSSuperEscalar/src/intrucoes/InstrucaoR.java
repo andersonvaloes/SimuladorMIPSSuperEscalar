@@ -21,6 +21,14 @@ abstract public class InstrucaoR  implements Instrucao{
 	boolean iniciou = false;
 	boolean terminou = false;
 	
+	public boolean mudou = false;
+	public boolean isMudou() {
+		return mudou;
+	}
+
+	public void setMudou(boolean mudou) {
+		this.mudou = mudou;
+	}
 	
 	public InstrucaoR(int rs, int rt, int rd) {
 		rs_ = rs;

@@ -61,15 +61,19 @@ public class InstrucaoIOpAddi extends InstrucaoI implements Instrucao {
 		dataStructure_.getReorderBuffer_().getROBList().add(robNode);
 		dataStructure_.getReservationStation().getAddList().add(rsNode);
 		dataStructure_.sPointer++;
+		mudou = true;
 		return true;
 	}
 	
 	@Override
 	public boolean execute(int i) {
-		if(dataStructure_.getReservationStation().getAddList().get(i).getQj() != 0 ||
-				dataStructure_.getReservationStation().getAddList().get(i).getQk() != 0)return false;
+		System.out.println("lkasjdlksaj");
+		if((dataStructure_.getReservationStation().getAddList().get(i).getQj() != 0 ||
+				dataStructure_.getReservationStation().getAddList().get(i).getQk() != 0) && !mudou)return false;
+		System.out.println("lkasjdlksaj");
 		iniciou = true;
 		if(time == 0){
+			mudou = true;
 			if(!terminou){
 				dataStructure_.getReservationStation().getAddList().get(i).setVj(dataStructure_.getRegisters_().getReg(dataStructure_.getReservationStation().getAddList().get(i).getVj()));
 				//dataStructure_.getReservationStation().getAddList().get(i).setVk(dataStructure_.getRegisters_().getReg(dataStructure_.getReservationStation().getAddList().get(i).getVk()));
@@ -84,12 +88,14 @@ public class InstrucaoIOpAddi extends InstrucaoI implements Instrucao {
 	}
 	@Override
 	public boolean write(int i) {
-		if(terminou){
+		if(terminou && !mudou){
 			ReorderBufferNode robnode = null;
 			for(ReorderBufferNode r : dataStructure_.getReorderBuffer_().getROBList()){
-				if(r._instrucao.equals(this))
+				if(r._instrucao.equals(this)){
 					robnode = r;
+				}
 			}
+			
 			robnode.value = dataStructure_.getRegisters_().getReg(dataStructure_.getReservationStation().getAddList().get(i).getVj()) +
 					dataStructure_.getReservationStation().getAddList().get(i).getA();
 			robnode.busy = false;
@@ -132,6 +138,7 @@ public class InstrucaoIOpAddi extends InstrucaoI implements Instrucao {
 				}
 			}
 			dataStructure_.getReservationStation().getAddList().remove(i);
+			mudou = true;
 			return true;
 		}
 		
@@ -140,18 +147,21 @@ public class InstrucaoIOpAddi extends InstrucaoI implements Instrucao {
 
 	@Override
 	public void commit(){
-		int h = dataStructure_.getReorderBuffer_().getNodeID(0).ID;
-		if (!dataStructure_.getReorderBuffer_().getBusy(h)){
-			int d = dataStructure_.getReorderBuffer_().getDest(h);
-			
-			dataStructure_.getRegisters_().setReg(d, dataStructure_.getReorderBuffer_().getValue(h));
-			
-			dataStructure_.getReorderBuffer_().setBusy(h, false);
-			if(dataStructure_.getRegisterStatus_().getReorder(d)==h)
-			{
-				dataStructure_.getRegisterStatus_().getBusy().set(d, false);
+		if(!mudou){
+			int h = dataStructure_.getReorderBuffer_().getNodeID(0).ID;
+			if (!dataStructure_.getReorderBuffer_().getBusy(h)){
+				int d = dataStructure_.getReorderBuffer_().getDest(h);
+				
+				dataStructure_.getRegisters_().setReg(d, dataStructure_.getReorderBuffer_().getValue(h));
+				
+				dataStructure_.getReorderBuffer_().setBusy(h, false);
+				if(dataStructure_.getRegisterStatus_().getReorder(d)==h)
+				{
+					dataStructure_.getRegisterStatus_().getBusy().set(d, false);
+				}
 			}
 		}
+		mudou = true;
 	}
 	
 }

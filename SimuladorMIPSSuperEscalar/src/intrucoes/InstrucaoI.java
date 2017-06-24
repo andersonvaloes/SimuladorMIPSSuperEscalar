@@ -15,11 +15,18 @@ abstract public class InstrucaoI implements Instrucao{
 	int immediate_;
 	boolean ehEspeculativo_ = false;
 	String instrucao_;
-	
+	public boolean mudou = false;
 	
 	DataStructure dataStructure_;
 	boolean iniciou = false;
 	boolean terminou = false;
+	public boolean isMudou() {
+		return mudou;
+	}
+
+	public void setMudou(boolean mudou) {
+		this.mudou = mudou;
+	}
 	
 	//Construtor
 	public InstrucaoI(int opCode, int rs, int rt, int immediate) {

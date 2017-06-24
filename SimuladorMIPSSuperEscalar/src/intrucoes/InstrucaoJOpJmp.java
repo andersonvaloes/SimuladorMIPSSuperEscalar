@@ -49,6 +49,7 @@ public class InstrucaoJOpJmp extends InstrucaoJ implements Instrucao{
 		dataStructure_.getReorderBuffer_().getROBList().add(robNode);
 		dataStructure_.getReservationStation().getAddList().add(rsNode);
 		dataStructure_.sPointer++;
+		mudou = true;
 		return true;
 	}
 	@Override

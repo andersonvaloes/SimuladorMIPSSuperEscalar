@@ -60,13 +60,14 @@ public class InstrucaoIOpLw extends InstrucaoI implements Instrucao {
 		dataStructure_.getReorderBuffer_().getROBList().add(robNode);
 		dataStructure_.getReservationStation().getLoadList().add(rsNode);
 		dataStructure_.sPointer++;
+		mudou = true;
 		return true;
 	}
 	
 	@Override
 	public boolean execute(int i) {
-		if(dataStructure_.getReservationStation().getLoadList().get(i).getQj() != 0 ||
-				dataStructure_.getReservationStation().getLoadList().get(i).getQk() != 0)return false;
+		if((dataStructure_.getReservationStation().getLoadList().get(i).getQj() != 0 ||
+				dataStructure_.getReservationStation().getLoadList().get(i).getQk() != 0)&& !mudou)return false;
 		
 		for(int j = 0; j < dataStructure_.getReorderBuffer_().getROBList().size();j++)
 			if(j<i && dataStructure_.getReorderBuffer_().getROBList().get(j)._instrucao.getOpCode() == Integer.parseInt("101011"))
@@ -76,6 +77,7 @@ public class InstrucaoIOpLw extends InstrucaoI implements Instrucao {
 		iniciou = true;
 		if(time == 0){
 			if(!terminou){
+				mudou = true;
 				ReorderBufferNode robnode = null;
 				for(ReorderBufferNode r : dataStructure_.getReorderBuffer_().getROBList()){
 					if(r._instrucao.equals(this))
@@ -98,7 +100,7 @@ public class InstrucaoIOpLw extends InstrucaoI implements Instrucao {
 	
 	@Override
 	public boolean write(int i) {
-		if(terminou){
+		if(terminou && !mudou){
 			ReorderBufferNode robnode = null;
 			for(ReorderBufferNode r : dataStructure_.getReorderBuffer_().getROBList()){
 				if(r._instrucao.equals(this))
@@ -144,6 +146,7 @@ public class InstrucaoIOpLw extends InstrucaoI implements Instrucao {
 				}
 			}
 			dataStructure_.getReservationStation().getLoadList().remove(i);
+			mudou = true;
 			return true;
 		}
 		
@@ -152,16 +155,18 @@ public class InstrucaoIOpLw extends InstrucaoI implements Instrucao {
 	
 	@Override
 	public void commit(){
-		int h = dataStructure_.getReorderBuffer_().getNodeID(0).ID;
-		if (!dataStructure_.getReorderBuffer_().getBusy(h)){
-			int d = dataStructure_.getReorderBuffer_().getDest(h);
-			
-			dataStructure_.getRegisters_().setReg(d, dataStructure_.getReorderBuffer_().getValue(h));
-			
-			dataStructure_.getReorderBuffer_().setBusy(h, false);
-			if(dataStructure_.getRegisterStatus_().getReorder(d)==h)
-			{
-				dataStructure_.getRegisterStatus_().getBusy().set(d, false);
+		if(!mudou){
+			int h = dataStructure_.getReorderBuffer_().getNodeID(0).ID;
+			if (!dataStructure_.getReorderBuffer_().getBusy(h)){
+				int d = dataStructure_.getReorderBuffer_().getDest(h);
+				
+				dataStructure_.getRegisters_().setReg(d, dataStructure_.getReorderBuffer_().getValue(h));
+				
+				dataStructure_.getReorderBuffer_().setBusy(h, false);
+				if(dataStructure_.getRegisterStatus_().getReorder(d)==h)
+				{
+					dataStructure_.getRegisterStatus_().getBusy().set(d, false);
+				}
 			}
 		}
 	}

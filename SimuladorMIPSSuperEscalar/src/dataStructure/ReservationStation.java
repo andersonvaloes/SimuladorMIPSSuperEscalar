@@ -52,19 +52,25 @@ public class ReservationStation {
 	
 	public void write(){
 		if(loadList.size()!=0){
-			if(loadList.get(0).write(0))
+			if(loadList.get(0).write(0)){
+				loadList.remove(0);
 				return;
+			}
 		}
 		for(int i = 0; i<3 ; i++){
 			if(i<multList.size()){
-				if(multList.get(i).write(i))
+				if(multList.get(i).write(i)){
+					multList.remove(i);
 					return;
+				}
 			}
 		}
 		for(int i = 0; i<3 ; i++){
 			if(i < addList.size()){
-				if(addList.get(i).write(i))
+				if(addList.get(i).write(i)){
+					addList.remove(i);
 					return;
+				}
 			}
 		}
 	}
