@@ -23,6 +23,8 @@ public interface Instrucao {
 
 	public void setMudou(boolean mudou) ;
 	
+	public int getTime();
+	
 	public boolean issue();
 	public boolean execute(int i);
 	public boolean write(int i);

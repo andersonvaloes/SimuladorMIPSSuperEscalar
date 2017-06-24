@@ -17,6 +17,7 @@ abstract public class InstrucaoI implements Instrucao{
 	String instrucao_;
 	public boolean mudou = false;
 	
+	
 	DataStructure dataStructure_;
 	boolean iniciou = false;
 	boolean terminou = false;
@@ -73,6 +74,11 @@ abstract public class InstrucaoI implements Instrucao{
 		this.dataStructure_ = dataStructure;
 		
 	}
-	
+	int time;
+	@Override
+	public int getTime() {
+		
+		return time;
+	}
 	
 }

@@ -65,6 +65,12 @@ abstract public class InstrucaoJ implements Instrucao{
 		// TODO Auto-generated method stub
 		
 	}
+	int time;
+	@Override
+	public int getTime() {
+		
+		return time;
+	}
 	
 	
 }

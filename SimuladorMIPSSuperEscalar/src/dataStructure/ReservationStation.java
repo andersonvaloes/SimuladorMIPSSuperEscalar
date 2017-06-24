@@ -2,14 +2,16 @@ package dataStructure;
 
 import java.util.ArrayList;
 
+import intrucoes.Instrucao;
+
 public class ReservationStation {
 	
 	ArrayList<ReservationStationNode> loadList = new ArrayList<ReservationStationNode>(5);
 	ArrayList<ReservationStationNode> addList = new ArrayList<ReservationStationNode>(3);
 	ArrayList<ReservationStationNode> multList = new ArrayList<ReservationStationNode>(3);
 	private DataStructure dataStructure_;
-	boolean estaex1 = false;
-	boolean estaex2 = false;
+	Instrucao i1=null, i2=null;
+	int a1=0, a2=0;
 	
 	public ArrayList<ReservationStationNode> getLoadList(){
 		return loadList;
@@ -30,23 +32,33 @@ public class ReservationStation {
 		if(loadList.size()!=0)
 			loadList.get(0).execute(0);
 		
-		
-		for(int i = 0; i<3 && !estaex1 ; i++){
-			if(i < addList.size()){
-				if(addList.get(i).execute(i)){
-					estaex1 = true;
-					break;
+		if(i1 == null){
+			for(int i = 0; i<3 ; i++){
+				if(i < addList.size()){
+					if(addList.get(i).execute(i)){
+						i1 = addList.get(i)._instrucao;
+						a1 = i;
+						break;
+					}
 				}
 			}
+		}else{
+			i1.execute(a1);
 		}
 		
-		for(int i = 0; i<3 && !estaex2; i++){
-			if(i < multList.size()){
-				if(multList.get(i).execute(i)) {
-					estaex2 = true;
-					break;
+		if(i2 == null){
+			for(int i = 0; i<3; i++){
+				if(i < multList.size()){
+					if(multList.get(i).execute(i)) {
+						i2 = addList.get(i)._instrucao;
+						a2 = i;
+						break;
+					}
 				}
 			}
+		}else{
+			i2.execute(a2);
+			
 		}
 	}
 	

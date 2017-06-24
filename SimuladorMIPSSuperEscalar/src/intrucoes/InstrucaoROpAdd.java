@@ -4,7 +4,7 @@ import dataStructure.ReorderBufferNode;
 import dataStructure.ReservationStationNode;
 
 public class InstrucaoROpAdd extends InstrucaoR implements Instrucao{	
-	int time = 1;
+	public int time = 1;
 	public InstrucaoROpAdd(int rs, int rt, int rd) {
 		super(rs, rt, rd);
 		funct_ = 32;

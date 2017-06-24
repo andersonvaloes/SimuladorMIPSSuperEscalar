@@ -72,6 +72,12 @@ abstract public class InstrucaoR  implements Instrucao{
 	public void setInstrucao(String s) {
 		instrucao_ = s;
 	}
+	int time;
+	@Override
+	public int getTime() {
+		
+		return time;
+	}
 		
 	
 }
