@@ -71,6 +71,9 @@ abstract public class InstrucaoJ implements Instrucao{
 		
 		return time;
 	}
-	
+	@Override
+	public boolean terminouDeExecutar() {
+		return false;
+	}
 	
 }

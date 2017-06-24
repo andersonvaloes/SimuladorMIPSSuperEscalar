@@ -76,4 +76,11 @@ public class ReorderBuffer {
 		if(robList.size() > 0)
 			robList.get(0).commit();
 	}
+	public ReorderBufferNode getRobNodeDest(int j) {
+		for(ReorderBufferNode r : getROBList()){
+			if(r.ID == j)
+				return r;
+		}
+		return null;
+	}
 }

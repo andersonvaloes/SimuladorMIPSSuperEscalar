@@ -3,6 +3,7 @@ package dataStructure;
 import java.util.ArrayList;
 
 import intrucoes.Instrucao;
+import intrucoes.InstrucaoJOpJmp;
 
 public class ReservationStation {
 	
@@ -29,36 +30,63 @@ public class ReservationStation {
 	}
 	
 	public void execute(){
+		
+		
 		if(loadList.size()!=0)
 			loadList.get(0).execute(0);
 		
 		if(i1 == null){
 			for(int i = 0; i<3 ; i++){
-				if(i < addList.size()){
+				if(i < addList.size() && i1 ==null){
 					if(addList.get(i).execute(i)){
 						i1 = addList.get(i)._instrucao;
 						a1 = i;
+						if(i1.terminouDeExecutar()){
+							i1.setMudou(false);
+							//addList.remove(a1);
+							i1 = null;
+						}
+						System.out.println("Teste");
 						break;
 					}
 				}
 			}
 		}else{
-			i1.execute(a1);
+			if(!i1.terminouDeExecutar()){
+					i1.execute(a1);
+					if(i1.terminouDeExecutar()){
+						i1.setMudou(false);
+						//addList.remove(a1);
+						i1 = null;
+					}
+			}
 		}
 		
 		if(i2 == null){
 			for(int i = 0; i<3; i++){
-				if(i < multList.size()){
+				if(i < multList.size() && i2 ==null){
 					if(multList.get(i).execute(i)) {
-						i2 = addList.get(i)._instrucao;
+						i2 = multList.get(i)._instrucao;
 						a2 = i;
+						if(i2.terminouDeExecutar()){
+							i2.setMudou(false);
+							//addList.remove(a2);
+							i2 = null;
+						}
 						break;
 					}
 				}
 			}
 		}else{
-			i2.execute(a2);
-			
+			//System.out.println("entrou em execussao");
+			if(!i2.terminouDeExecutar()){
+				i2.execute(a1);
+				if(i2.terminouDeExecutar()){
+					i2.setMudou(false);
+					//addList.remove(a2);
+					i2 = null;
+				}
+			}
 		}
 	}
 	
@@ -72,7 +100,8 @@ public class ReservationStation {
 		for(int i = 0; i<3 ; i++){
 			if(i<multList.size()){
 				if(multList.get(i).write(i)){
-					multList.remove(i);
+					//System.out.println(i+ "Probelma RS ver ind" + multList.size());
+					//multList.remove(i);
 					return;
 				}
 			}
@@ -80,7 +109,7 @@ public class ReservationStation {
 		for(int i = 0; i<3 ; i++){
 			if(i < addList.size()){
 				if(addList.get(i).write(i)){
-					addList.remove(i);
+					//addList.remove(i);
 					return;
 				}
 			}

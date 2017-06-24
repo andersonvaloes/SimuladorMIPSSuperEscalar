@@ -33,9 +33,9 @@ public class InstrucaoIOpSw extends InstrucaoI implements Instrucao {
 		rsNode.setInstrucao(this);
 		rsNode.setOp(instrucao_);
 		
-		int b;
+		/*int b;
 		b = dataStructure_.getReorderBuffer_().getROBList().size();
-		rsNode.setDest(b);
+		rsNode.setDest(b);*/
 		
 		robNode._instrucao = this;
 		robNode.instruction = instrucao_;
@@ -43,10 +43,11 @@ public class InstrucaoIOpSw extends InstrucaoI implements Instrucao {
 		robNode.busy = true;
 		
 		if(dataStructure_.getReorderBuffer_().getROBList().size() == 0)
-			robNode.ID = 0;
+			robNode.ID = 1;
 		else
-			robNode.ID = dataStructure_.getReorderBuffer_().getROBList().get(dataStructure_.getReorderBuffer_().getROBList().size()-1).ID++;
-		
+			robNode.ID = dataStructure_.getReorderBuffer_().getROBList().get(dataStructure_.getReorderBuffer_().getROBList().size()-1).ID+1;
+		//System.out.println(robNode.ID + " Imprimir ID do ROB ");
+		rsNode.setDest(robNode.ID);
 		rsNode.setVk(dataStructure_.getRegisters_().getReg(rt_));
 		rsNode.setQk(0);
 		
@@ -65,9 +66,9 @@ public class InstrucaoIOpSw extends InstrucaoI implements Instrucao {
 	}
 	@Override
 	public boolean execute(int i) {
-		if((dataStructure_.getReservationStation().getLoadList().get(i).getQj() != 0 ||
-				dataStructure_.getReservationStation().getLoadList().get(i).getQk() != 0) && !mudou &&
-				dataStructure_.getReorderBuffer_().getROBList().get(0)._instrucao.equals(this))return false;
+		if(dataStructure_.getReservationStation().getAddList().get(i).getQj() != 0 ||
+				dataStructure_.getReservationStation().getAddList().get(i).getQk() != 0 || mudou ||
+				!dataStructure_.getReorderBuffer_().getROBList().get(0)._instrucao.equals(this))return false;
 		iniciou = true;
 		if(time == 0){
 			if(!terminou){

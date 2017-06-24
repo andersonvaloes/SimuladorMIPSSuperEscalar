@@ -44,10 +44,10 @@ public class InstrucaoIOpAddi extends InstrucaoI implements Instrucao {
 		robNode.busy = true;
 		
 		if(dataStructure_.getReorderBuffer_().getROBList().size() == 0)
-			robNode.ID = 0;
+			robNode.ID = 1;
 		else
-			robNode.ID = dataStructure_.getReorderBuffer_().getROBList().get(dataStructure_.getReorderBuffer_().getROBList().size()-1).ID++;
-		
+			robNode.ID = dataStructure_.getReorderBuffer_().getROBList().get(dataStructure_.getReorderBuffer_().getROBList().size()-1).ID+1;
+		rsNode.setDest(robNode.ID);
 		rsNode.setVk(dataStructure_.getRegisters_().getReg(rt_));
 		rsNode.setQk(0);
 		
@@ -66,22 +66,23 @@ public class InstrucaoIOpAddi extends InstrucaoI implements Instrucao {
 	}
 	
 	@Override
-	public boolean execute(int i) {
-		System.out.println("lkasjdlksaj");
-		if((dataStructure_.getReservationStation().getAddList().get(i).getQj() != 0 ||
-				dataStructure_.getReservationStation().getAddList().get(i).getQk() != 0) && !mudou)return false;
-		System.out.println("lkasjdlksaj");
+	public boolean execute(int i) {//System.out.println(mudou);
+		if(dataStructure_.getReservationStation().getAddList().get(i).getQj() != 0 ||
+				dataStructure_.getReservationStation().getAddList().get(i).getQk() != 0 || mudou)return false;
+		mudou = true;
 		iniciou = true;
-		if(time == 0){
-			mudou = true;
-			if(!terminou){
-				dataStructure_.getReservationStation().getAddList().get(i).setVj(dataStructure_.getRegisters_().getReg(dataStructure_.getReservationStation().getAddList().get(i).getVj()));
-				//dataStructure_.getReservationStation().getAddList().get(i).setVk(dataStructure_.getRegisters_().getReg(dataStructure_.getReservationStation().getAddList().get(i).getVk()));
-				terminou = true;
-				return true;
-			}else{
-				return true;
-			}
+		dataStructure_.getReorderBuffer_().getRobNodeDest(dataStructure_.getReservationStation().getAddList().get(i).getDest()).state = "Executando";
+		if(time == 0 && !terminou){
+			dataStructure_.getReservationStation().getAddList().get(i).setVj(dataStructure_.getRegisters_().getReg(dataStructure_.getReservationStation().getAddList().get(i).getVj()));
+			//dataStructure_.getReservationStation().getAddList().get(i).setVk(dataStructure_.getRegisters_().getReg(dataStructure_.getReservationStation().getAddList().get(i).getVk()));
+			terminou = true;
+			mudou = false;
+			return true;
+		}
+		if(terminou){
+			//System.out.println("chegou aqui que eu tou querendo ver");
+			mudou = false;
+			return true;
 		}
 		time--;
 		return false;
@@ -99,6 +100,7 @@ public class InstrucaoIOpAddi extends InstrucaoI implements Instrucao {
 			robnode.value = dataStructure_.getRegisters_().getReg(dataStructure_.getReservationStation().getAddList().get(i).getVj()) +
 					dataStructure_.getReservationStation().getAddList().get(i).getA();
 			robnode.busy = false;
+			robnode.state = "Escrita";
 			int b = dataStructure_.getReservationStation().getAddList().get(i).getDest();
 			dataStructure_.getReservationStation().getAddList().get(i).setBusy(false);
 		
@@ -148,7 +150,7 @@ public class InstrucaoIOpAddi extends InstrucaoI implements Instrucao {
 	@Override
 	public void commit(){
 		if(!mudou){
-			int h = dataStructure_.getReorderBuffer_().getNodeID(0).ID;
+			int h = 0;
 			if (!dataStructure_.getReorderBuffer_().getBusy(h)){
 				int d = dataStructure_.getReorderBuffer_().getDest(h);
 				
@@ -160,8 +162,8 @@ public class InstrucaoIOpAddi extends InstrucaoI implements Instrucao {
 					dataStructure_.getRegisterStatus_().getBusy().set(d, false);
 				}
 			}
+			dataStructure_.getReorderBuffer_().getROBList().remove(0);
 		}
-		mudou = true;
 	}
 	
 }

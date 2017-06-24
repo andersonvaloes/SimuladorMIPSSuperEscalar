@@ -18,7 +18,7 @@ public interface Instrucao {
 	public void setEspeculativo();
 	public void freeEspeculativo();
 	public boolean ehEspeculativo();
-	
+	public boolean terminouDeExecutar();
 	public boolean isMudou() ;
 
 	public void setMudou(boolean mudou) ;

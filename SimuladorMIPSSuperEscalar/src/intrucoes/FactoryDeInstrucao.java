@@ -2,10 +2,7 @@ package intrucoes;
 
 public class FactoryDeInstrucao {
 	
-	public static Instrucao getInstrucao(String s){
-		
-		System.out.println(getFunct(s));
-		
+	public static Instrucao getInstrucao(String s){		
 		//Intrucao tipo R
 		if(getOpCode(s).equals("000000")){
 			switch (getFunct(s)){

@@ -43,10 +43,10 @@ public class InstrucaoIOpBeq extends InstrucaoI implements Instrucao {
 		robNode.busy = true;
 		
 		if(dataStructure_.getReorderBuffer_().getROBList().size() == 0)
-			robNode.ID = 0;
+			robNode.ID = 1;
 		else
-			robNode.ID = dataStructure_.getReorderBuffer_().getROBList().get(dataStructure_.getReorderBuffer_().getROBList().size()-1).ID++;
-		
+			robNode.ID = dataStructure_.getReorderBuffer_().getROBList().get(dataStructure_.getReorderBuffer_().getROBList().size()-1).ID+1;
+		rsNode.setDest(robNode.ID);
 		rsNode.setVk(dataStructure_.getRegisters_().getReg(rt_));
 		rsNode.setQk(0);
 		
@@ -70,8 +70,8 @@ public class InstrucaoIOpBeq extends InstrucaoI implements Instrucao {
 	
 	@Override
 	public boolean execute(int i) {
-		if((dataStructure_.getReservationStation().getAddList().get(i).getQj() != 0 || 
-				dataStructure_.getReservationStation().getAddList().get(i).getQk() != 0) && !mudou)return false;
+		if(dataStructure_.getReservationStation().getAddList().get(i).getQj() != 0 ||
+				dataStructure_.getReservationStation().getAddList().get(i).getQk() != 0 || mudou)return false;
 		iniciou = true;
 		if(time == 0){
 			mudou = true;

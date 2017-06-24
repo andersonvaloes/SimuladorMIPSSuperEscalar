@@ -59,9 +59,9 @@ public class InterfaceMIPS{
 	public void setTableROB(ArrayList<ReorderBufferNode> robList){
 		_robList=robList;
 		for(int i = 0 ; i<10 && _robList.size()>i;i++){
-			System.out.println("Rob list: " + _robList.get(i).ID);
+			//System.out.println("Rob list: " + _robList.get(i).ID);
 			int j = i+1;
-			System.out.println("Rob list: " + _robList.get(i).instruction + "linha : " + j); 
+			//System.out.println("Rob list: " + _robList.get(i).instruction + "linha : " + j); 
 			
 			tableROB.setValueAt(_robList.get(i).ID, j, 0);
 			tableROB.setValueAt(_robList.get(i).busy, j, 1);

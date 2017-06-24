@@ -80,5 +80,9 @@ abstract public class InstrucaoI implements Instrucao{
 		
 		return time;
 	}
+	@Override
+	public boolean terminouDeExecutar() {
+		return terminou;
+	}
 	
 }

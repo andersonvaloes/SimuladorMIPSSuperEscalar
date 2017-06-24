@@ -45,7 +45,12 @@ public class ProcessadorMips {
 		
 		System.out.println("RobList");
 		for(int i=0; i < robList.size(); i++){
-			System.out.println(robList.get(i).instruction);
+			System.out.println(robList.get(i).instruction
+					+"  "+robList.get(i).ID
+					+"  "+robList.get(i).busy
+					+"  "+robList.get(i).state
+					+"  "+robList.get(i).destination
+					+"  "+robList.get(i).value);
 			robList.get(i)._instrucao.setMudou(false);
 		}
 		System.out.println("rsLoadList");

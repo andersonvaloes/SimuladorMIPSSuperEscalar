@@ -36,8 +36,8 @@ public class InstrucaoJOpJmp extends InstrucaoJ implements Instrucao{
 		if(dataStructure_.getReorderBuffer_().getROBList().size() == 0)
 			robNode.ID = 0;
 		else
-			robNode.ID = dataStructure_.getReorderBuffer_().getROBList().get(dataStructure_.getReorderBuffer_().getROBList().size()-1).ID++;
-		
+			robNode.ID = dataStructure_.getReorderBuffer_().getROBList().get(dataStructure_.getReorderBuffer_().getROBList().size()-1).ID+1;
+		rsNode.setDest(robNode.ID);
 		rsNode.setVk(0);
 		rsNode.setQk(0);
 		
