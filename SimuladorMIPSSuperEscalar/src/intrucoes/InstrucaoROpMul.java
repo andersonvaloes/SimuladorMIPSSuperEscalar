@@ -145,4 +145,20 @@ public class InstrucaoROpMul extends InstrucaoR implements Instrucao{
 		return false;
 	}
 	
+	@Override
+	public void commit(){
+		int h = dataStructure_.getReorderBuffer_().getNodeID(0).ID;
+		if (!dataStructure_.getReorderBuffer_().getBusy(h)){
+			int d = dataStructure_.getReorderBuffer_().getDest(h);
+			
+			dataStructure_.getRegisters_().setReg(d, dataStructure_.getReorderBuffer_().getValue(h));
+			
+			dataStructure_.getReorderBuffer_().setBusy(h, false);
+			if(dataStructure_.getRegisterStatus_().getReorder(d)==h)
+			{
+				dataStructure_.getRegisterStatus_().getBusy().set(d, false);
+			}
+		}
+	}
+	
 }

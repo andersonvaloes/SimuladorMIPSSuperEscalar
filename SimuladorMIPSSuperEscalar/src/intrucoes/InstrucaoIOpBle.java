@@ -106,5 +106,24 @@ public class InstrucaoIOpBle extends InstrucaoI implements Instrucao {
 		}
 		return false;
 	}
+	
+	@Override
+	public void commit(){
+		int h = dataStructure_.getReorderBuffer_().getNodeID(0).ID;
+		if (!dataStructure_.getReorderBuffer_().getBusy(h)){
+			int d = dataStructure_.getReorderBuffer_().getDest(h);
+			if (dataStructure_.getReorderBuffer_().getValue(h)!=dataStructure_.getReorderBuffer_().getInstruction(h+1).getNbyte()){
+				dataStructure_.sPointer=dataStructure_.getReorderBuffer_().getValue(h);
+				dataStructure_.getRegisterStatus_().getReorder().clear();
+				dataStructure_.getRegisterStatus_().getBusy().clear();
+				dataStructure_.getReorderBuffer_().clearAll();
+			}
+			dataStructure_.getReorderBuffer_().setBusy(h, false);
+			if(dataStructure_.getRegisterStatus_().getReorder(d)==h)
+			{
+				dataStructure_.getRegisterStatus_().getBusy().set(d, false);
+			}
+		}
+	}
 
 }
