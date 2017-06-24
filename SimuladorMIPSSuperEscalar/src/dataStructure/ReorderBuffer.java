@@ -72,7 +72,8 @@ public class ReorderBuffer {
 				return n;
 		return null;
 	}
-	/*public void commit(){
-		
-	}*/
+	public void commit(){
+		if(robList.size() > 0)
+			robList.get(0).commit();
+	}
 }

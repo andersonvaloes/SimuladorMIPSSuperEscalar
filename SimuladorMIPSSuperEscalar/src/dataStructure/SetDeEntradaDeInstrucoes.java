@@ -18,6 +18,7 @@ public class SetDeEntradaDeInstrucoes {
 			FileReader arq = new FileReader(arquivo);
 			BufferedReader lerArq = new BufferedReader(arq);
 			while( (linha = lerArq.readLine()) != null){
+				//System.out.println(linha.split(";")[0]);
 				list.add(FactoryDeInstrucao.getInstrucao(linha.split(";")[0]));
 				list.get(list.size()-1).setInstrucao(linha.split("; ")[1]);
 				list.get(list.size()-1).setNbyte((list.size()-1)*4);

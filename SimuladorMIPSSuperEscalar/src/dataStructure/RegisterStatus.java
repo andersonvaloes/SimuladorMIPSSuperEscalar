@@ -4,8 +4,15 @@ import java.util.ArrayList;
 
 public class RegisterStatus {
 	ArrayList<Integer> reorder = new ArrayList<Integer>(32);
-	ArrayList<Boolean> busy = new ArrayList<Boolean>();
+	ArrayList<Boolean> busy = new ArrayList<Boolean>(32);
+	public RegisterStatus() {
+		for(int i=0; i<32;i++)
+			reorder.add(0);
+		for(int i=0; i<32;i++)
+			busy.add(false);
+	}
 	public boolean isBusy (int ID){
+		//System.out.println(busy.get(ID));
 		return busy.get(ID);
 	}
 	public int getReorder(int id){

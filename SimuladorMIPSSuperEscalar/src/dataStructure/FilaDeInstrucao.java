@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import intrucoes.Instrucao;
 
 public class FilaDeInstrucao {
-	ArrayList<Instrucao> fila_;
+	public ArrayList<Instrucao> fila_;
 	DataStructure dataStructure_;
 	
 	public void setDataStructure(DataStructure dataStructure) {
@@ -14,10 +14,13 @@ public class FilaDeInstrucao {
 	
 	public void setNaFilaDeInstrucao(String arquivo, DataStructure dataStructure ) {
 		fila_ = SetDeEntradaDeInstrucoes.getSetIntrucaoDaEntrada(arquivo, dataStructure);
+		dataStructure.filaDeIntrucao_ = this;
 	}
 	
 	public void issue(){
 		if(dataStructure_.sPointer < fila_.size()){
+			//System.out.println(fila_.get(dataStructure_.sPointer).getInstrucao());
+			//System.out.println(fila_.get(dataStructure_.sPointer).getOpCode());
 			fila_.get(dataStructure_.sPointer).issue();
 		}
 	}

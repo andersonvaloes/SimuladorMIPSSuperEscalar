@@ -1,5 +1,7 @@
 package processador;
 import java.util.ArrayList;
+
+import javax.xml.crypto.Data;
 import javax.xml.transform.sax.SAXTransformerFactory;
 import GUI.InterfaceMIPS;
 import dataStructure.DataStructure;
@@ -33,11 +35,49 @@ public class ProcessadorMips {
 		ArrayList<ReservationStationNode> rsAddList = dataStructure.getReservationStation().getAddList();
 		ArrayList<ReservationStationNode> rsMultList = dataStructure.getReservationStation().getMultList();
 		
-		GUI.setTableROB(robList);
-		GUI.setTableRS(rsLoadList,rsAddList,rsMultList);
+		System.out.println("");
+		System.out.println("--------------------------------------------");
+		System.out.println("");
+		
+		System.out.println("RobList");
+		for(int i=0; i < robList.size(); i++){
+			System.out.println(robList.get(i).instruction);
+		}
+		System.out.println("rsLoadList");
+		for(int i=0; i < rsLoadList.size(); i++){
+			System.out.println(rsLoadList.get(i).getInstrucao().getInstrucao());
+		}
+		System.out.println("rsAddList");
+		for(int i=0; i < rsAddList.size(); i++){
+			System.out.println(rsAddList.get(i).getInstrucao().getInstrucao());
+		}
+		System.out.println("rsMultList");
+		for(int i=0; i < rsMultList.size(); i++){
+			System.out.println(rsMultList.get(i).getInstrucao().getInstrucao());
+		}
+		System.out.println("");
+		System.out.println("--------------------------------------------");
+		System.out.println("");
+		
+		GUI.setTableROB(dataStructure.getReorderBuffer_().getROBList());
+		GUI.setTableRS(dataStructure.getReservationStation().getLoadList(),dataStructure.getReservationStation().getAddList(),
+				dataStructure.getReservationStation().getMultList());
 		GUI.setTableRegs(dataStructure.getRegisters_());
 		GUI.setTableMemoria(dataStructure.getMemory_());
 		GUI.setTableClock();
 		
 	}
+	
+	/*public static void main(String[] args) {
+		ProcessadorMips p = new ProcessadorMips("/home/spider/git/SimuladorMIPSSuperEscalar/SimuladorMIPSSuperEscalar/src/dataStructure/entrada");
+		System.out.println(p.dataStructure.sPointer);
+		System.out.println(p.dataStructure.getFilaDeIntrucao_().fila_.size());
+		p.RunClock();
+		System.out.println(p.dataStructure.getReservationStation().getAddList().get(0).getInstrucao().getInstrucao());
+		p.RunClock();
+		p.RunClock();
+		System.out.println(p.dataStructure.getReservationStation().getLoadList().get(0).getInstrucao().getInstrucao());
+
+		
+	}*/
 }

@@ -15,5 +15,8 @@ public class ReorderBufferNode {
 	public void setInstrucao (Instrucao instrucao){
 		_instrucao = instrucao;
 	}
+	public void commit(){
+		_instrucao.commit();
+	}
 	
 }

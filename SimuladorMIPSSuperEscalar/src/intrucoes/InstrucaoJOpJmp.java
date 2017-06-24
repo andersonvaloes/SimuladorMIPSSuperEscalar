@@ -51,5 +51,23 @@ public class InstrucaoJOpJmp extends InstrucaoJ implements Instrucao{
 		dataStructure_.sPointer++;
 		return true;
 	}
+	@Override
+	public void commit() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public boolean write(int i) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	
+
+	@Override
+	public boolean execute(int i) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }

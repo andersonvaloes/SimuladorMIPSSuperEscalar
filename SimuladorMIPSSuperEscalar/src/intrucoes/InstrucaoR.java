@@ -60,6 +60,10 @@ abstract public class InstrucaoR  implements Instrucao{
 		this.dataStructure_ = dataStructure;
 		
 	}
+	@Override
+	public void setInstrucao(String s) {
+		instrucao_ = s;
+	}
 		
 	
 }

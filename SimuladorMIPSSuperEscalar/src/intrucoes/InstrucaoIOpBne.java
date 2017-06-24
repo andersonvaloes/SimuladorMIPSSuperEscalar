@@ -112,7 +112,7 @@ public class InstrucaoIOpBne extends InstrucaoI implements Instrucao {
 		int h = dataStructure_.getReorderBuffer_().getNodeID(0).ID;
 		if (!dataStructure_.getReorderBuffer_().getBusy(h)){
 			int d = dataStructure_.getReorderBuffer_().getDest(h);
-			if (dataStructure_.getReorderBuffer_().getValue(h)!=dataStructure_.getReorderBuffer_().getInstruction(h+1).getNbyte()){
+			if (dataStructure_.getReorderBuffer_().getValue(h)!=dataStructure_.getReorderBuffer_().getROBList().get(h+1)._instrucao.getNbyte()){
 				dataStructure_.sPointer=dataStructure_.getReorderBuffer_().getValue(h);
 				dataStructure_.getRegisterStatus_().getReorder().clear();
 				dataStructure_.getRegisterStatus_().getBusy().clear();

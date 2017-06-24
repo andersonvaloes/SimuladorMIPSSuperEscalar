@@ -52,5 +52,10 @@ abstract public class InstrucaoJ implements Instrucao{
 		this.dataStructure_ = dataStructure;
 		
 	}
+	@Override
+	public void setInstrucao(String s) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

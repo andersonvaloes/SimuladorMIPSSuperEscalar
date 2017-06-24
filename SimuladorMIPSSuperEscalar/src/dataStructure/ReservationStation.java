@@ -30,32 +30,44 @@ public class ReservationStation {
 		if(loadList.size()!=0)
 			loadList.get(0).execute(0);
 		
+		
 		for(int i = 0; i<3 && !estaex1 ; i++){
-			if(addList.get(i).execute(i)){
-				estaex1 = true;
-				break;
+			if(i < addList.size()){
+				if(addList.get(i).execute(i)){
+					estaex1 = true;
+					break;
+				}
 			}
 		}
+		
 		for(int i = 0; i<3 && !estaex2; i++){
-			if(multList.get(i).execute(i)) {
-				estaex2 = true;
-				break;
+			if(i < multList.size()){
+				if(multList.get(i).execute(i)) {
+					estaex2 = true;
+					break;
+				}
 			}
 		}
 	}
 	
 	public void write(){
-		for(int i = 0; i<5 ; i++){
-			loadList.get(i).write(i);
+		if(loadList.size()!=0){
+			if(loadList.get(0).write(0))
+				return;
 		}
 		for(int i = 0; i<3 ; i++){
-			multList.get(i).write(i);
+			if(i<multList.size()){
+				if(multList.get(i).write(i))
+					return;
+			}
 		}
 		for(int i = 0; i<3 ; i++){
-			addList.get(i).write(i);
+			if(i < addList.size()){
+				if(addList.get(i).write(i))
+					return;
+			}
 		}
 	}
-	
 	
 	public boolean isFullLoad(){
 		if(loadList.size()>=5){
