@@ -71,6 +71,12 @@ public class InterfaceMIPS{
 	public void setTableROB(ArrayList<ReorderBufferNode> robList){
 		_robList=robList;
 		
+		for (int i = 1; i < tableROB.getRowCount(); i++){
+		      for(int j = 0; j < tableROB.getColumnCount(); j++) {
+		    	  tableROB.setValueAt("", i, j);
+		      }
+		}
+		
 		for(int i = 0 ; i<10 && _robList.size()>i;i++){
 			System.out.println("Rob list: " + _robList.get(i).ID);
 			int j = i+1;
@@ -87,6 +93,15 @@ public class InterfaceMIPS{
 	
 	
 	public void setTableRegs(RegisterStatus regsStatus){
+		
+		for (int i = 1; i < tableRegs.getRowCount(); i++){
+		      for(int j = 1; j < tableRegs.getColumnCount(); j++) {
+		    	  if (j!= 3 && j!= 5 && j!=7){
+		    		  tableRegs.setValueAt("", i, j);
+		    	  }
+		      }
+		}
+		
 		_regsStatus = regsStatus;
 		int j = 0;
 		for(int k = 1 ; k<11 ; k=k+3){
@@ -101,11 +116,17 @@ public class InterfaceMIPS{
 	public void setTableClock(int sPointer, int clock){
 		tableClock.setValueAt(sPointer, 1, 1);
 		tableClock.setValueAt(clock, 0, 1);
-		
 	}
 
 	
 	public void setTableRS(ArrayList<ReservationStationNode> rsLoadList,ArrayList<ReservationStationNode> rsAddList,ArrayList<ReservationStationNode> rsMultList){
+		
+		for (int i = 1; i < tableRS.getRowCount(); i++){
+		      for(int j = 2; j < tableRS.getColumnCount(); j++) {
+		    	  tableRS.setValueAt("", i, j);
+		      }
+		}	
+		
 		_rsLoadList = rsLoadList;
 		_rsAddList=rsAddList;
 		_rsMultList=rsMultList;
@@ -182,16 +203,17 @@ public class InterfaceMIPS{
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 900, 479);
+		frame.setBounds(100, 100, 1209, 440);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setResizable(false);
 		
 		label = new JLabel("");
 		label.setBounds(10, 221, 108, 25);
 		frame.getContentPane().add(label);
 		
 		panel = new JPanel();
-		panel.setBounds(0, -26, 884, 440);
+		panel.setBounds(0, -26, 1193, 440);
 		frame.getContentPane().add(panel);
 		
 		JLabel lblRS = new JLabel("Esta\u00E7\u00E3o de Reserva");
@@ -214,9 +236,11 @@ public class InterfaceMIPS{
 				{"ER10", "Mult", null, null, null, null, null, null, null, null},
 			},
 			new String[] {
-					"ID", "Tipo", "Busy", "Instru", "Dest", "Vj", "Vk", "Qj", "Qk", "A"
+				"ID", "Tipo", "Busy", "Instru", "Dest", "Vj", "Vk", "Qj", "Qk", "A"
 			}
 		));
+		tableRS.getColumnModel().getColumn(2).setPreferredWidth(64);
+		tableRS.getColumnModel().getColumn(3).setPreferredWidth(150);
 		tableRS.setEnabled(false);
 		tableRS.setBorder(BorderFactory.createLineBorder(Color.black));
 		
@@ -243,6 +267,8 @@ public class InterfaceMIPS{
 				"New column", "New column", "New column", "New column", "New column", "New column"
 			}
 		));
+		tableROB.getColumnModel().getColumn(1).setPreferredWidth(56);
+		tableROB.getColumnModel().getColumn(2).setPreferredWidth(151);
 		tableROB.setEnabled(false);
 		tableROB.setBorder(BorderFactory.createLineBorder(Color.black));
 		
@@ -316,33 +342,31 @@ public class InterfaceMIPS{
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblRS, GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
-								.addComponent(tableRS, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE))
+								.addComponent(lblRS, GroupLayout.DEFAULT_SIZE, 894, Short.MAX_VALUE)
+								.addComponent(tableRS, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 894, Short.MAX_VALUE))
+							.addGap(18)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel.createSequentialGroup()
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(tableClock, GroupLayout.PREFERRED_SIZE, 243, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addGap(41)
-									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_panel.createSequentialGroup()
-											.addComponent(btnPlay)
-											.addGap(18)
-											.addComponent(btnPlayFull)
-											.addGap(18)
-											.addComponent(btnPaste))
-										.addComponent(btnPrediNaoSalta, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-										.addComponent(btnPred1Bit, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-										.addComponent(btnPred2Bits, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))
-									.addGap(51))))
+								.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+									.addComponent(btnPlay)
+									.addGap(18)
+									.addComponent(btnPlayFull)
+									.addGap(18)
+									.addComponent(btnPaste)
+									.addGap(29))
+								.addGroup(Alignment.TRAILING, gl_panel.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(btnPrediNaoSalta, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(btnPred1Bit, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(btnPred2Bits, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(tableClock, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)))
+							.addGap(20))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblROB, GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
-								.addComponent(tableROB, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(tableRegs, GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
-								.addComponent(lblNewLabel_1, GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE))))
+								.addComponent(lblROB, GroupLayout.DEFAULT_SIZE, 763, Short.MAX_VALUE)
+								.addComponent(tableROB, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 763, Short.MAX_VALUE))
+							.addGap(18)
+							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(lblNewLabel_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(tableRegs, GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE))))
 					.addContainerGap())
 		);
 		gl_panel.setVerticalGroup(
@@ -357,9 +381,9 @@ public class InterfaceMIPS{
 							.addPreferredGap(ComponentPlacement.RELATED))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-								.addComponent(btnPlay)
+								.addComponent(btnPaste)
 								.addComponent(btnPlayFull)
-								.addComponent(btnPaste))
+								.addComponent(btnPlay))
 							.addGap(18)
 							.addComponent(btnPrediNaoSalta, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -424,6 +448,12 @@ public class ClassListenerPlay implements ActionListener {
 	            System.out.println("File access cancelled by user.");
 	        }       
 	    }   
+	}
+	public boolean getFrameEnabled() {
+		return frame.isEnabled();
+	}
+	public void setFrameEnabled(boolean enabled) {
+		frame.setEnabled(enabled);
 	}
 }
 
