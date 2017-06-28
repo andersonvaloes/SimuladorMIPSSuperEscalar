@@ -20,6 +20,8 @@ public class ProcessadorMips {
 									new ReorderBuffer(), new ReservationStation());	
 	InterfaceMIPS _GUI = new InterfaceMIPS();
 	
+	int nclock = 0;
+	
 	public ProcessadorMips(String arquivo) {
 		dataStructure.getFilaDeIntrucao_().setNaFilaDeInstrucao(arquivo, dataStructure);
 	}
@@ -27,6 +29,7 @@ public class ProcessadorMips {
 	public void RunClock(InterfaceMIPS GUI){
 		_GUI=GUI;
 		
+		nclock++;
 		ArrayList<ReorderBufferNode> robList = dataStructure.getReorderBuffer_().getROBList();
 		ArrayList<ReservationStationNode> rsLoadList = dataStructure.getReservationStation().getLoadList();
 		ArrayList<ReservationStationNode> rsAddList = dataStructure.getReservationStation().getAddList();
@@ -158,7 +161,7 @@ public class ProcessadorMips {
 				dataStructure.getReservationStation().getMultList());
 		_GUI.setTableRegs(dataStructure.getRegisterStatus_());
 		_GUI.setTableMemoria(dataStructure.getMemory_());
-		//GUI.setTableClock();
+		_GUI.setTableClock(dataStructure.sPointer,nclock);
 		
 	}
 	

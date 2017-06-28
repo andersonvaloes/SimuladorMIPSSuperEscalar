@@ -89,7 +89,6 @@ public class InterfaceMIPS{
 	public void setTableRegs(RegisterStatus regsStatus){
 		_regsStatus = regsStatus;
 		int j = 0;
-		Object a = "te";
 		for(int k = 1 ; k<11 ; k=k+3){
 			for(int i = 1;i<9 ;i++){
 				tableRegs.setValueAt(_regsStatus.getBusy().get(j).toString(), i, k);
@@ -97,6 +96,12 @@ public class InterfaceMIPS{
 				j++;
 			}
 		}
+	}
+	
+	public void setTableClock(int sPointer, int clock){
+		tableClock.setValueAt(sPointer, 1, 1);
+		tableClock.setValueAt(clock, 0, 1);
+		
 	}
 
 	
