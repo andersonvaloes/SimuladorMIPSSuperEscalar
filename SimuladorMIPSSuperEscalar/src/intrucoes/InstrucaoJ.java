@@ -12,7 +12,8 @@ abstract public class InstrucaoJ implements Instrucao{
 	boolean ehEspeculativo_ = false;
 	String instrucao_;
 	public boolean mudou = false;
-
+	public boolean terminou = false;
+	public boolean escrita = false;
 	public boolean isMudou() {
 		return mudou;
 	}
@@ -74,6 +75,15 @@ abstract public class InstrucaoJ implements Instrucao{
 	@Override
 	public boolean terminouDeExecutar() {
 		return false;
+	}
+	@Override
+	public boolean foiEscrita() {
+		
+		return escrita;
+	}
+	@Override
+	public void setTerminou(boolean s){
+		terminou = s;
 	}
 	
 }

@@ -53,6 +53,11 @@ public class InstrucaoJOpJmp extends InstrucaoJ implements Instrucao{
 		return true;
 	}
 	@Override
+	public boolean isExecutable(int i) {
+		return dataStructure_.getReservationStation().getAddList().get(i).getQj() == 0 &&
+				dataStructure_.getReservationStation().getAddList().get(i).getQk() == 0;
+	}
+	@Override
 	public void commit() {
 		// TODO Auto-generated method stub
 		

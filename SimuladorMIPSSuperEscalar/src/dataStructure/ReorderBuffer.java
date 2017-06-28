@@ -73,8 +73,15 @@ public class ReorderBuffer {
 		return null;
 	}
 	public void commit(){
-		if(robList.size() > 0)
-			robList.get(0).commit();
+		if(robList.size() > 0){
+			System.out.println("Verificou");
+
+			if(robList.get(0)._instrucao.foiEscrita() && !robList.get(0).equals(dataStructure_.write)){	
+				System.out.println("Verificou");
+				robList.get(0).commit();
+			}
+		}
+		
 	}
 	public ReorderBufferNode getRobNodeDest(int j) {
 		for(ReorderBufferNode r : getROBList()){

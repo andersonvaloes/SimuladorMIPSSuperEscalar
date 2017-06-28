@@ -1,5 +1,7 @@
 package dataStructure;
 
+import intrucoes.Instrucao;
+
 public class DataStructure {
 	public int sPointer = 0;
 	public int pred = 0;
@@ -10,6 +12,10 @@ public class DataStructure {
 	RegisterStatus registerStatus_;
 	ReorderBuffer reorderBuffer_;
 	ReservationStation reservationStation;
+	
+	public ReservationStationNode addexecute = null, loadexecute = null, multexecute = null, issued = null; 
+	public ReorderBufferNode write; 
+
 	public DataStructure(FilaDeInstrucao fdi,
 						Memory mem,
 						Registers regs,

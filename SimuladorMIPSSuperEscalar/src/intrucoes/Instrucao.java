@@ -19,11 +19,14 @@ public interface Instrucao {
 	public void freeEspeculativo();
 	public boolean ehEspeculativo();
 	public boolean terminouDeExecutar();
+	public boolean foiEscrita();
 	public boolean isMudou() ;
-
+	public boolean isExecutable(int i);
 	public void setMudou(boolean mudou) ;
 	
 	public int getTime();
+	
+	public void setTerminou(boolean s);
 	
 	public boolean issue();
 	public boolean execute(int i);

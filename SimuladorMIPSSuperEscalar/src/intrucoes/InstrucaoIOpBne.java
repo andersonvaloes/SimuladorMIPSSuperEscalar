@@ -10,6 +10,7 @@ public class InstrucaoIOpBne extends InstrucaoI implements Instrucao {
 	}
 	@Override
 	public boolean issue() {
+		dataStructure_.issued = null;
 		if(dataStructure_.getReservationStation().isFullAdd() || 
 				dataStructure_.getReorderBuffer_().isFull()) return false;
 		
@@ -63,25 +64,27 @@ public class InstrucaoIOpBne extends InstrucaoI implements Instrucao {
 			dataStructure_.sPointer++;
 		else
 			dataStructure_.sPointer = dataStructure_.sPointer + immediate_/4;
+		dataStructure_.issued = rsNode;
 		mudou = true;
 		return true;
+	}
+	@Override
+	public boolean isExecutable(int i) {
+		return dataStructure_.getReservationStation().getAddList().get(i).getQj() == 0 &&
+				dataStructure_.getReservationStation().getAddList().get(i).getQk() == 0;
 	}
 	
 	@Override
 	public boolean execute(int i) {
-		if(dataStructure_.getReservationStation().getAddList().get(i).getQj() != 0 ||
-				dataStructure_.getReservationStation().getAddList().get(i).getQk() != 0 || mudou)return false;
-		iniciou = true;
+		if(dataStructure_.getReorderBuffer_().getRobNodeDest(dataStructure_.getReservationStation().getAddList().get(i).getDest())!=null)
+			dataStructure_.getReorderBuffer_().getRobNodeDest(dataStructure_.getReservationStation().getAddList().get(i).getDest()).state = "Executando";
 		if(time == 0){
-			if(!terminou){
-				mudou = true;
-				dataStructure_.getReservationStation().getAddList().get(i).setVj(dataStructure_.getRegisters_().getReg(dataStructure_.getReservationStation().getAddList().get(i).getVj()));
-				dataStructure_.getReservationStation().getAddList().get(i).setVk(dataStructure_.getRegisters_().getReg(dataStructure_.getReservationStation().getAddList().get(i).getVk()));
-				terminou = true;
-				return true;
-			}else{
-				return true;
-			}
+			//dataStructure_.getReservationStation().getAddList().get(i).setVj(dataStructure_.getRegisters_().getReg(dataStructure_.getReservationStation().getAddList().get(i).getVj()));
+			//dataStructure_.getReservationStation().getAddList().get(i).setVj(45);
+			//dataStructure_.getReservationStation().getAddList().get(i).setVk(dataStructure_.getRegisters_().getReg(dataStructure_.getReservationStation().getAddList().get(i).getVk()));
+			this.setTerminou(true);
+			mudou = false;
+			return true;
 		}
 		time--;
 		return false;
@@ -89,7 +92,7 @@ public class InstrucaoIOpBne extends InstrucaoI implements Instrucao {
 	
 	@Override
 	public boolean write(int i) {
-		if(terminou && !mudou){
+
 			ReorderBufferNode robnode = null;
 			for(ReorderBufferNode r : dataStructure_.getReorderBuffer_().getROBList()){
 				if(r._instrucao.equals(this))
@@ -103,32 +106,29 @@ public class InstrucaoIOpBne extends InstrucaoI implements Instrucao {
 			robnode.busy = false;
 			int b = dataStructure_.getReservationStation().getAddList().get(i).getDest();
 			dataStructure_.getReservationStation().getAddList().get(i).setBusy(false);
-			dataStructure_.getReservationStation().getAddList().remove(i);
+			//dataStructure_.getReservationStation().getAddList().remove(i);
 			mudou = true;
 			return true;
-		}
-		return false;
+
 	}
 	
 	@Override
 	public void commit(){
-		if(!mudou){
-			int h = dataStructure_.getReorderBuffer_().getNodeID(0).ID;
+		if(dataStructure_.getReorderBuffer_().getROBList().get(0).state == "Escrita"){
+			int h = 0;
 			if (!dataStructure_.getReorderBuffer_().getBusy(h)){
 				int d = dataStructure_.getReorderBuffer_().getDest(h);
-				if (dataStructure_.getReorderBuffer_().getValue(h)!=dataStructure_.getReorderBuffer_().getROBList().get(h+1)._instrucao.getNbyte()){
-					dataStructure_.sPointer=dataStructure_.getReorderBuffer_().getValue(h);
-					dataStructure_.getRegisterStatus_().getReorder().clear();
-					dataStructure_.getRegisterStatus_().getBusy().clear();
-					dataStructure_.getReorderBuffer_().clearAll();
-				}
+				
+				dataStructure_.getRegisters_().setReg(d, dataStructure_.getReorderBuffer_().getValue(h));
+				
 				dataStructure_.getReorderBuffer_().setBusy(h, false);
-				if(dataStructure_.getRegisterStatus_().getReorder(d)==h)
+				if(dataStructure_.getRegisterStatus_().getReorder(d) == dataStructure_.getReorderBuffer_().getDest(h))
 				{
 					dataStructure_.getRegisterStatus_().getBusy().set(d, false);
+					dataStructure_.getRegisterStatus_().getReorder().set(d, 0);
 				}
 			}
+			dataStructure_.getReorderBuffer_().getROBList().remove(0);
 		}
 	}
-
 }

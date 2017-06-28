@@ -20,6 +20,7 @@ abstract public class InstrucaoR  implements Instrucao{
 	DataStructure dataStructure_;
 	boolean iniciou = false;
 	boolean terminou = false;
+	boolean escrita = true;
 	
 	public boolean mudou = false;
 	public boolean isMudou() {
@@ -81,6 +82,15 @@ abstract public class InstrucaoR  implements Instrucao{
 	@Override
 	public boolean terminouDeExecutar() {
 		return terminou;
+	}
+	@Override
+	public void setTerminou(boolean s){
+		terminou = s;
+	}
+	@Override
+	public boolean foiEscrita() {
+		
+		return escrita;
 	}
 	
 }
