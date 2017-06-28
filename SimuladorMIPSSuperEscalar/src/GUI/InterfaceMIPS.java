@@ -203,7 +203,7 @@ public class InterfaceMIPS{
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1209, 440);
+		frame.setBounds(100, 100, 1209, 471);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
@@ -213,7 +213,7 @@ public class InterfaceMIPS{
 		frame.getContentPane().add(label);
 		
 		panel = new JPanel();
-		panel.setBounds(0, -26, 1193, 440);
+		panel.setBounds(0, -26, 1193, 458);
 		frame.getContentPane().add(panel);
 		
 		JLabel lblRS = new JLabel("Esta\u00E7\u00E3o de Reserva");
@@ -303,15 +303,16 @@ public class InterfaceMIPS{
 				{"PC:", null},
 				{"N\u00FAmero de instru\u00E7\u00F5es conclu\u00EDdas:", null},
 				{"Clock por instru\u00E7\u00F5es (CPI):", null},
+				{"Predi\u00E7\u00E3o", null},
 			},
 			new String[] {
 				"New column", "New column"
 			}
 		));
+		tableClock.getColumnModel().getColumn(0).setPreferredWidth(171);
+		tableClock.getColumnModel().getColumn(1).setPreferredWidth(92);
 		tableClock.setEnabled(false);
 		tableClock.setBorder(BorderFactory.createLineBorder(Color.black));
-		tableClock.getColumnModel().getColumn(0).setPreferredWidth(216);
-		tableClock.getColumnModel().getColumn(1).setPreferredWidth(79);
 		tableClock.setBounds(602, 146, 272, 65);
 		
 		JButton btnPlay = new JButton("");
@@ -322,7 +323,7 @@ public class InterfaceMIPS{
 		btnPlayFull = new JButton("");
 		btnPlayFull.setIcon(new ImageIcon(InterfaceMIPS.class.getResource("/Resources/Actions-arrow-right-double-icon.png")));
 		btnPlayFull.setBounds(630, 9, 22, 25);
-		btnPlayFull.addActionListener(new ClassListenerPlayFull());
+		btnPlayFull.addActionListener(new ClassListenerPlayFull(this));
 		
 		btnPaste = new JButton("");
 		btnPaste.setIcon(new ImageIcon(InterfaceMIPS.class.getResource("/Resources/folder-icon.png")));
@@ -330,10 +331,14 @@ public class InterfaceMIPS{
 		btnPaste.addActionListener(new ClassListener());
 		
 		btnPrediNaoSalta = new JButton("Preditor n\u00E3o salta");
+		btnPrediNaoSalta.addActionListener(new ClassListenerp1(this));
 		
 		btnPred1Bit = new JButton("Preditor de 1 bit");
+		btnPred1Bit.addActionListener(new ClassListenerp2(this));
 		
 		btnPred2Bits = new JButton("Preditor de 2 bits");
+		btnPred2Bits.addActionListener(new ClassListenerp3(this));
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -346,24 +351,22 @@ public class InterfaceMIPS{
 								.addComponent(tableRS, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 894, Short.MAX_VALUE))
 							.addGap(18)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+								.addComponent(btnPrediNaoSalta, GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+								.addComponent(btnPred1Bit, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnPred2Bits, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addGroup(gl_panel.createSequentialGroup()
 									.addComponent(btnPlay)
 									.addGap(18)
 									.addComponent(btnPlayFull)
 									.addGap(18)
 									.addComponent(btnPaste)
-									.addGap(29))
-								.addGroup(Alignment.TRAILING, gl_panel.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(btnPrediNaoSalta, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(btnPred1Bit, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(btnPred2Bits, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(tableClock, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)))
-							.addGap(20))
+									.addPreferredGap(ComponentPlacement.RELATED, 68, Short.MAX_VALUE))
+								.addComponent(tableClock, GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblROB, GroupLayout.DEFAULT_SIZE, 763, Short.MAX_VALUE)
-								.addComponent(tableROB, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 763, Short.MAX_VALUE))
-							.addGap(18)
+								.addComponent(tableROB, GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
+								.addComponent(lblROB, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
 								.addComponent(lblNewLabel_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(tableRegs, GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE))))
@@ -373,40 +376,39 @@ public class InterfaceMIPS{
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGap(33)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(lblRS, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(tableRS, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED))
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 								.addComponent(btnPaste)
 								.addComponent(btnPlayFull)
 								.addComponent(btnPlay))
-							.addGap(18)
+							.addGap(23)
 							.addComponent(btnPrediNaoSalta, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnPred1Bit, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnPred2Bits, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGap(11)
 							.addComponent(tableClock, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(37)))
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblROB, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(tableROB, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE)
-						.addComponent(tableRegs, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+							.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(tableRegs, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(lblRS, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(tableRS, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblROB, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(tableROB, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+					.addContainerGap())
 		);
 		panel.setLayout(gl_panel);
 		
 	}
 	
-public class ClassListenerPlay implements ActionListener {
+	public class ClassListenerPlay implements ActionListener {
 		public InterfaceMIPS _GUI;
 		
 		ClassListenerPlay(InterfaceMIPS GUI){
@@ -422,10 +424,50 @@ public class ClassListenerPlay implements ActionListener {
 	}
 	
 	public class ClassListenerPlayFull implements ActionListener {
+		public InterfaceMIPS _GUI;
+		ClassListenerPlayFull(InterfaceMIPS GUI){
+			_GUI = GUI;
+		}
 		
 	    public void actionPerformed(ActionEvent e) {
 	    	
 	    	
+	    }   
+	}
+	
+	public class ClassListenerp1 implements ActionListener {
+		
+		public InterfaceMIPS _GUI;
+		ClassListenerp1(InterfaceMIPS GUI){
+			_GUI = GUI;
+		}
+		
+	    public void actionPerformed(ActionEvent e) {
+	    	tableClock.setValueAt("Não salta", 4, 1);
+	    }   
+	}
+	
+	public class ClassListenerp2 implements ActionListener {
+		
+		public InterfaceMIPS _GUI;
+		ClassListenerp2(InterfaceMIPS GUI){
+			_GUI = GUI;
+		}
+		
+	    public void actionPerformed(ActionEvent e) {
+	    	tableClock.setValueAt("Pred. 1 bit", 4, 1);
+	    }   
+	}
+	
+	public class ClassListenerp3 implements ActionListener {
+		
+		public InterfaceMIPS _GUI;
+		ClassListenerp3(InterfaceMIPS GUI){
+			_GUI = GUI;
+		}
+		
+	    public void actionPerformed(ActionEvent e) {
+	    	tableClock.setValueAt("Pred. 2 bits", 4, 1);
 	    }   
 	}
 	
