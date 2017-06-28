@@ -15,7 +15,7 @@ import dataStructure.ReservationStation;
 import dataStructure.ReservationStationNode;
 
 public class ProcessadorMips {
-	DataStructure dataStructure = new DataStructure(new FilaDeInstrucao(),
+	public DataStructure dataStructure = new DataStructure(new FilaDeInstrucao(),
 									new Memory(), new Registers(), new RegisterStatus(),
 									new ReorderBuffer(), new ReservationStation());	
 	InterfaceMIPS _GUI = new InterfaceMIPS();
@@ -27,142 +27,144 @@ public class ProcessadorMips {
 	}
 	
 	public void RunClock(InterfaceMIPS GUI){
-		_GUI=GUI;
-		
-		nclock++;
-		ArrayList<ReorderBufferNode> robList = dataStructure.getReorderBuffer_().getROBList();
-		ArrayList<ReservationStationNode> rsLoadList = dataStructure.getReservationStation().getLoadList();
-		ArrayList<ReservationStationNode> rsAddList = dataStructure.getReservationStation().getAddList();
-		ArrayList<ReservationStationNode> rsMultList = dataStructure.getReservationStation().getMultList();
-		
-		System.out.println("");
-		System.out.println("-------------------Antes-------------------------");
-		System.out.println("");
-		
-		System.out.println("RobList");
-		for(int i=0; i < robList.size(); i++){
-			System.out.println(robList.get(i).instruction
-					+"  "+robList.get(i).ID
-					+"  "+robList.get(i).busy
-					+"  "+robList.get(i).state
-					+"  "+robList.get(i).destination
-					+"  "+robList.get(i).value);
-			//robList.get(i)._instrucao.setMudou(false);
-		}
-		System.out.println("rsLoadList");
-		for(int i=0; i < rsLoadList.size(); i++){
-			System.out.println(rsLoadList.get(i).getInstrucao().getInstrucao()
-					+"  "+rsLoadList.get(i).getOp()
-					+"  "+rsLoadList.get(i).getVj()
-					+"  "+rsLoadList.get(i).getVk()
-					+"  "+rsLoadList.get(i).getQj()
-					+"  "+rsLoadList.get(i).getQk()
-					+"  "+rsLoadList.get(i).getDest()
-					+"  "+rsLoadList.get(i).getA());
-			//rsLoadList.get(i).getInstrucao().setMudou(false);
-		}
-		System.out.println("rsAddList");
-		for(int i=0; i < rsAddList.size(); i++){
-			System.out.println(rsAddList.get(i).getInstrucao().getInstrucao()
-					+"  "+rsAddList.get(i).getOp()
-					+"  "+rsAddList.get(i).getVj()
-					+"  "+rsAddList.get(i).getVk()
-					+"  "+rsAddList.get(i).getQj()
-					+"  "+rsAddList.get(i).getQk()
-					+"  "+rsAddList.get(i).getDest()
-					+"  "+rsAddList.get(i).getA());
-			//rsAddList.get(i).getInstrucao().setMudou(false);
-		}
-		System.out.println("rsMultList");
-		for(int i=0; i < rsMultList.size(); i++){
-			System.out.println(rsMultList.get(i).getInstrucao().getInstrucao()
-					+"  "+rsMultList.get(i).getOp()
-					+"  "+rsMultList.get(i).getVj()
-					+"  "+rsMultList.get(i).getVk()
-					+"  "+rsMultList.get(i).getQj()
-					+"  "+rsMultList.get(i).getQk()
-					+"  "+rsMultList.get(i).getDest()
-					+"  "+rsMultList.get(i).getA());
-			//rsMultList.get(i).getInstrucao().setMudou(false);
-		}
-		System.out.println("");
-		System.out.println("--------------------------------------------");
-		System.out.println("");
-
-		dataStructure.getReservationStation().execute();
-		dataStructure.getReservationStation().write();
-		dataStructure.getReorderBuffer_().commit();
-		dataStructure.getFilaDeIntrucao_().issue();
+		if(dataStructure.sPointer <= dataStructure.getFilaDeIntrucao_().fila_.size()){
+			_GUI=GUI;
 			
-		dataStructure.issued = null;
-		dataStructure.write = null;
-		
-		
-		System.out.println("");
-		System.out.println("--------------------------------------------");
-		System.out.println("");
-		
-		System.out.println("RobList");
-		for(int i=0; i < robList.size(); i++){
-			System.out.println(robList.get(i).instruction
-					+"  "+robList.get(i).ID
-					+"  "+robList.get(i).busy
-					+"  "+robList.get(i).state
-					+"  "+robList.get(i).destination
-					+"  "+robList.get(i).value);
-			robList.get(i)._instrucao.setMudou(false);
+			nclock++;
+			ArrayList<ReorderBufferNode> robList = dataStructure.getReorderBuffer_().getROBList();
+			ArrayList<ReservationStationNode> rsLoadList = dataStructure.getReservationStation().getLoadList();
+			ArrayList<ReservationStationNode> rsAddList = dataStructure.getReservationStation().getAddList();
+			ArrayList<ReservationStationNode> rsMultList = dataStructure.getReservationStation().getMultList();
+			
+			System.out.println("");
+			System.out.println("-------------------Antes-------------------------");
+			System.out.println("");
+			
+			System.out.println("RobList");
+			for(int i=0; i < robList.size(); i++){
+				System.out.println(robList.get(i).instruction
+						+"  "+robList.get(i).ID
+						+"  "+robList.get(i).busy
+						+"  "+robList.get(i).state
+						+"  "+robList.get(i).destination
+						+"  "+robList.get(i).value);
+				//robList.get(i)._instrucao.setMudou(false);
+			}
+			System.out.println("rsLoadList");
+			for(int i=0; i < rsLoadList.size(); i++){
+				System.out.println(rsLoadList.get(i).getInstrucao().getInstrucao()
+						+"  "+rsLoadList.get(i).getOp()
+						+"  "+rsLoadList.get(i).getVj()
+						+"  "+rsLoadList.get(i).getVk()
+						+"  "+rsLoadList.get(i).getQj()
+						+"  "+rsLoadList.get(i).getQk()
+						+"  "+rsLoadList.get(i).getDest()
+						+"  "+rsLoadList.get(i).getA());
+				//rsLoadList.get(i).getInstrucao().setMudou(false);
+			}
+			System.out.println("rsAddList");
+			for(int i=0; i < rsAddList.size(); i++){
+				System.out.println(rsAddList.get(i).getInstrucao().getInstrucao()
+						+"  "+rsAddList.get(i).getOp()
+						+"  "+rsAddList.get(i).getVj()
+						+"  "+rsAddList.get(i).getVk()
+						+"  "+rsAddList.get(i).getQj()
+						+"  "+rsAddList.get(i).getQk()
+						+"  "+rsAddList.get(i).getDest()
+						+"  "+rsAddList.get(i).getA());
+				//rsAddList.get(i).getInstrucao().setMudou(false);
+			}
+			System.out.println("rsMultList");
+			for(int i=0; i < rsMultList.size(); i++){
+				System.out.println(rsMultList.get(i).getInstrucao().getInstrucao()
+						+"  "+rsMultList.get(i).getOp()
+						+"  "+rsMultList.get(i).getVj()
+						+"  "+rsMultList.get(i).getVk()
+						+"  "+rsMultList.get(i).getQj()
+						+"  "+rsMultList.get(i).getQk()
+						+"  "+rsMultList.get(i).getDest()
+						+"  "+rsMultList.get(i).getA());
+				//rsMultList.get(i).getInstrucao().setMudou(false);
+			}
+			System.out.println("");
+			System.out.println("--------------------------------------------");
+			System.out.println("");
+	
+			dataStructure.getReservationStation().execute();
+			dataStructure.getReservationStation().write();
+			dataStructure.getReorderBuffer_().commit();
+			dataStructure.getFilaDeIntrucao_().issue();
+				
+			dataStructure.issued = null;
+			dataStructure.write = null;
+			
+			
+			System.out.println("");
+			System.out.println("--------------------------------------------");
+			System.out.println("");
+			
+			System.out.println("RobList");
+			for(int i=0; i < robList.size(); i++){
+				System.out.println(robList.get(i).instruction
+						+"  "+robList.get(i).ID
+						+"  "+robList.get(i).busy
+						+"  "+robList.get(i).state
+						+"  "+robList.get(i).destination
+						+"  "+robList.get(i).value);
+				robList.get(i)._instrucao.setMudou(false);
+			}
+			System.out.println("rsLoadList");
+			for(int i=0; i < rsLoadList.size(); i++){
+				System.out.println(rsLoadList.get(i).getInstrucao().getInstrucao()
+						+"  "+rsLoadList.get(i).getOp()
+						+"  "+rsLoadList.get(i).getVj()
+						+"  "+rsLoadList.get(i).getVk()
+						+"  "+rsLoadList.get(i).getQj()
+						+"  "+rsLoadList.get(i).getQk()
+						+"  "+rsLoadList.get(i).getDest()
+						+"  "+rsLoadList.get(i).getA());
+				rsLoadList.get(i).getInstrucao().setMudou(false);
+			}
+			System.out.println("rsAddList");
+			for(int i=0; i < rsAddList.size(); i++){
+				System.out.println(rsAddList.get(i).getInstrucao().getInstrucao()
+						+"  "+rsAddList.get(i).getOp()
+						+"  "+rsAddList.get(i).getVj()
+						+"  "+rsAddList.get(i).getVk()
+						+"  "+rsAddList.get(i).getQj()
+						+"  "+rsAddList.get(i).getQk()
+						+"  "+rsAddList.get(i).getDest()
+						+"  "+rsAddList.get(i).getA());
+				rsAddList.get(i).getInstrucao().setMudou(false);
+			}
+			System.out.println("rsMultList");
+			for(int i=0; i < rsMultList.size(); i++){
+				System.out.println(rsMultList.get(i).getInstrucao().getInstrucao()
+						+"  "+rsMultList.get(i).getOp()
+						+"  "+rsMultList.get(i).getVj()
+						+"  "+rsMultList.get(i).getVk()
+						+"  "+rsMultList.get(i).getQj()
+						+"  "+rsMultList.get(i).getQk()
+						+"  "+rsMultList.get(i).getDest()
+						+"  "+rsMultList.get(i).getA());
+				rsMultList.get(i).getInstrucao().setMudou(false);
+			}
+			
+			
+			System.out.println("SP " + dataStructure.sPointer);
+			System.out.println("Tamanho do Rob: "+ dataStructure.getReorderBuffer_().getROBList().size());
+			
+			System.out.println("");
+			System.out.println("--------------------------------------------");
+			System.out.println("");
+			
+			_GUI.setTableROB(dataStructure.getReorderBuffer_().getROBList());
+			_GUI.setTableRS(dataStructure.getReservationStation().getLoadList(),dataStructure.getReservationStation().getAddList(),
+					dataStructure.getReservationStation().getMultList());
+			_GUI.setTableRegs(dataStructure.getRegisterStatus_());
+			_GUI.setTableMemoria(dataStructure.getMemory_());
+			_GUI.setTableClock(dataStructure.sPointer,nclock);
 		}
-		System.out.println("rsLoadList");
-		for(int i=0; i < rsLoadList.size(); i++){
-			System.out.println(rsLoadList.get(i).getInstrucao().getInstrucao()
-					+"  "+rsLoadList.get(i).getOp()
-					+"  "+rsLoadList.get(i).getVj()
-					+"  "+rsLoadList.get(i).getVk()
-					+"  "+rsLoadList.get(i).getQj()
-					+"  "+rsLoadList.get(i).getQk()
-					+"  "+rsLoadList.get(i).getDest()
-					+"  "+rsLoadList.get(i).getA());
-			rsLoadList.get(i).getInstrucao().setMudou(false);
-		}
-		System.out.println("rsAddList");
-		for(int i=0; i < rsAddList.size(); i++){
-			System.out.println(rsAddList.get(i).getInstrucao().getInstrucao()
-					+"  "+rsAddList.get(i).getOp()
-					+"  "+rsAddList.get(i).getVj()
-					+"  "+rsAddList.get(i).getVk()
-					+"  "+rsAddList.get(i).getQj()
-					+"  "+rsAddList.get(i).getQk()
-					+"  "+rsAddList.get(i).getDest()
-					+"  "+rsAddList.get(i).getA());
-			rsAddList.get(i).getInstrucao().setMudou(false);
-		}
-		System.out.println("rsMultList");
-		for(int i=0; i < rsMultList.size(); i++){
-			System.out.println(rsMultList.get(i).getInstrucao().getInstrucao()
-					+"  "+rsMultList.get(i).getOp()
-					+"  "+rsMultList.get(i).getVj()
-					+"  "+rsMultList.get(i).getVk()
-					+"  "+rsMultList.get(i).getQj()
-					+"  "+rsMultList.get(i).getQk()
-					+"  "+rsMultList.get(i).getDest()
-					+"  "+rsMultList.get(i).getA());
-			rsMultList.get(i).getInstrucao().setMudou(false);
-		}
-		
-		
-		System.out.println("SP " + dataStructure.sPointer);
-		
-		System.out.println("");
-		System.out.println("--------------------------------------------");
-		System.out.println("");
-		
-		_GUI.setTableROB(dataStructure.getReorderBuffer_().getROBList());
-		_GUI.setTableRS(dataStructure.getReservationStation().getLoadList(),dataStructure.getReservationStation().getAddList(),
-				dataStructure.getReservationStation().getMultList());
-		_GUI.setTableRegs(dataStructure.getRegisterStatus_());
-		_GUI.setTableMemoria(dataStructure.getMemory_());
-		_GUI.setTableClock(dataStructure.sPointer,nclock);
-		
 	}
 	
 	/*public static void main(String[] args) {

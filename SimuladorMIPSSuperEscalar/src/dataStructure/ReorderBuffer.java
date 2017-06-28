@@ -67,9 +67,9 @@ public class ReorderBuffer {
 	}
 	
 	public ReorderBufferNode getNodeID(int id){
-		for(ReorderBufferNode n : robList)
-			if(n.ID == id)
-				return n;
+		for(int i = 0; i < robList.size(); i++)
+			if(robList.get(i).ID == id)
+				return robList.get(i);
 		return null;
 	}
 	public void commit(){

@@ -48,9 +48,11 @@ public class InstrucaoROpMul extends InstrucaoR implements Instrucao{
 			robNode.ID = 1;
 		else
 			robNode.ID = dataStructure_.getReorderBuffer_().getROBList().get(dataStructure_.getReorderBuffer_().getROBList().size()-1).ID+1;
+		System.out.println("RobNode ID: " + robNode.ID);
 		rsNode.setDest(robNode.ID);
 		if(dataStructure_.getRegisterStatus_().isBusy(rt_)){
 			int h = dataStructure_.getRegisterStatus_().getReorder(rt_);
+			System.out.println("Rob ID: " + h);
 			if(!dataStructure_.getReorderBuffer_().getNodeID(h).busy){
 				rsNode.setVk(dataStructure_.getReorderBuffer_().getValue(h));
 				rsNode.setQk(0);
@@ -156,7 +158,7 @@ public class InstrucaoROpMul extends InstrucaoR implements Instrucao{
 				
 				dataStructure_.getRegisters_().setReg(rd_, dataStructure_.getReorderBuffer_().getValue(0));
 				//dataStructure_.getReorderBuffer_().setBusy(0, false);
-				if(dataStructure_.getRegisterStatus_().getReorder(rd_) == dataStructure_.getReorderBuffer_().getDest(0)){
+				if(dataStructure_.getRegisterStatus_().getReorder(rd_) == dataStructure_.getRegisterStatus_().getReorder(dataStructure_.getReorderBuffer_().getDest(0))){
 					dataStructure_.getRegisterStatus_().getBusy().set(rd_, false);
 					dataStructure_.getRegisterStatus_().getReorder().set(rd_, 0);
 				}

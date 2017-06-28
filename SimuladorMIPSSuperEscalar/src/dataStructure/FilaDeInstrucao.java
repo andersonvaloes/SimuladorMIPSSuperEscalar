@@ -21,7 +21,12 @@ public class FilaDeInstrucao {
 		if(dataStructure_.sPointer < fila_.size()){
 			//System.out.println(fila_.get(dataStructure_.sPointer).getInstrucao());
 			//System.out.println(fila_.get(dataStructure_.sPointer).getOpCode());
-			fila_.get(dataStructure_.sPointer).issue();
+			//fila_.get(dataStructure_.sPointer).issue();
+			//System.out.println("SP: "+dataStructure_.sPointer);
+			//System.out.println("Instrucao para issue: "+fila_.get(dataStructure_.sPointer).getInstrucao());
+			//System.out.println(SetDeEntradaDeInstrucoes.getSetIntrucaoDaEntrada(fila_.get(dataStructure_.sPointer),dataStructure_));
+			SetDeEntradaDeInstrucoes.getSetIntrucaoDaEntrada(fila_.get(dataStructure_.sPointer),dataStructure_).issue();
+			
 		}
 	}
 }

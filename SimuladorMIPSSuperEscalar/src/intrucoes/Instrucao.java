@@ -14,6 +14,8 @@ public interface Instrucao {
 	public void setNbyte(int i);
 	public void setInstrucao(String s);
 	public void setDataStructure(DataStructure dataStructure);
+	public void setInstrucaoOpCode(String s);
+	public String getInstrucaoOpCode();
 	
 	public void setEspeculativo();
 	public void freeEspeculativo();

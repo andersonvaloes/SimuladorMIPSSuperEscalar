@@ -24,5 +24,12 @@ public class RegisterStatus {
 	public ArrayList<Boolean> getBusy(){
 		return busy;
 	}
-	
+	public void clearAll(){
+		reorder = new ArrayList<Integer>(32);
+		busy = new ArrayList<Boolean>(32);
+		for(int i=0; i<32;i++)
+			reorder.add(0);
+		for(int i=0; i<32;i++)
+			busy.add(false);
+	}
 }

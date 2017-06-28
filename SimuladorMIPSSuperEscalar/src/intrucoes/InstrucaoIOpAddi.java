@@ -47,6 +47,7 @@ public class InstrucaoIOpAddi extends InstrucaoI implements Instrucao {
 			robNode.ID = 1;
 		else
 			robNode.ID = dataStructure_.getReorderBuffer_().getROBList().get(dataStructure_.getReorderBuffer_().getROBList().size()-1).ID+1;
+		System.out.println("RobNode ID: " + robNode.ID);
 		rsNode.setDest(robNode.ID);
 		rsNode.setVk(0);
 		rsNode.setQk(0);
@@ -150,7 +151,10 @@ public class InstrucaoIOpAddi extends InstrucaoI implements Instrucao {
 				
 				dataStructure_.getRegisters_().setReg(rt_, dataStructure_.getReorderBuffer_().getValue(0));
 				//dataStructure_.getReorderBuffer_().setBusy(0, false);
-				if(dataStructure_.getRegisterStatus_().getReorder(rt_) == dataStructure_.getReorderBuffer_().getDest(0)){
+				System.out.println("");
+				System.out.println("Instrucao "+ instrucao_);
+				System.out.println("Ver se acerta"+ dataStructure_.getRegisterStatus_().getReorder(rt_) +" == "+ dataStructure_.getRegisterStatus_().getReorder(dataStructure_.getReorderBuffer_().getDest(0)));
+				if(dataStructure_.getRegisterStatus_().getReorder(rt_) == dataStructure_.getRegisterStatus_().getReorder(dataStructure_.getReorderBuffer_().getDest(0))){
 					dataStructure_.getRegisterStatus_().getBusy().set(rt_, false);
 					dataStructure_.getRegisterStatus_().getReorder().set(rt_, 0);
 				}

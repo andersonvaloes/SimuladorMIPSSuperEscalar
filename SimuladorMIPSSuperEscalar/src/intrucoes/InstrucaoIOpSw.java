@@ -51,7 +51,8 @@ public class InstrucaoIOpSw extends InstrucaoI implements Instrucao {
 		if(dataStructure_.getRegisterStatus_().isBusy(rt_)){
 			int h = dataStructure_.getRegisterStatus_().getReorder(rt_);
 			if(!dataStructure_.getReorderBuffer_().getNodeID(h).busy){
-				rsNode.setVk(dataStructure_.getReorderBuffer_().getValue(h));
+				System.out.println(h);
+				rsNode.setVk(dataStructure_.getReorderBuffer_().getNodeID(h).value);
 				rsNode.setQk(0);
 			}else{
 				rsNode.setQk(h);

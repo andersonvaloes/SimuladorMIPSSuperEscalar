@@ -93,4 +93,14 @@ abstract public class InstrucaoR  implements Instrucao{
 		return escrita;
 	}
 	
+	
+	String InstrucaoOpCode;
+	@Override
+	public void setInstrucaoOpCode(String s) {
+		InstrucaoOpCode = s;		
+	}
+	@Override
+	public String getInstrucaoOpCode() {
+		return InstrucaoOpCode;
+	}
 }

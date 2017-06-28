@@ -22,7 +22,8 @@ public class SetDeEntradaDeInstrucoes {
 				list.add(FactoryDeInstrucao.getInstrucao(linha.split(";")[0]));
 				list.get(list.size()-1).setInstrucao(linha.split("; ")[1]);
 				list.get(list.size()-1).setNbyte((list.size()-1)*4);
-				list.get(list.size()-1).setDataStructure(dataStructure);				
+				list.get(list.size()-1).setDataStructure(dataStructure);
+				list.get(list.size()-1).setInstrucaoOpCode(linha.split(";")[0]);
 			}
 		} catch (Exception e){
 			JOptionPane.showMessageDialog(null, "Arquivo não encontrado", "Problema encontrado", JOptionPane.INFORMATION_MESSAGE);
@@ -30,5 +31,14 @@ public class SetDeEntradaDeInstrucoes {
 		}
 		
 		return list;
+	}
+	
+	
+	public static Instrucao getSetIntrucaoDaEntrada(Instrucao instrucao, DataStructure dataStructure){
+		Instrucao inst = FactoryDeInstrucao.getInstrucao(instrucao.getInstrucaoOpCode());
+		inst.setInstrucao(instrucao.getInstrucao());
+		inst.setNbyte(instrucao.getNbyte());
+		inst.setDataStructure(dataStructure);
+		return inst;
 	}
 }

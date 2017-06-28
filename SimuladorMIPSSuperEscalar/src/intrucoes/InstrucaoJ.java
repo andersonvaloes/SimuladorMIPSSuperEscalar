@@ -86,4 +86,14 @@ abstract public class InstrucaoJ implements Instrucao{
 		terminou = s;
 	}
 	
+	String InstrucaoOpCode;
+	@Override
+	public void setInstrucaoOpCode(String s) {
+		InstrucaoOpCode = s;		
+	}
+	@Override
+	public String getInstrucaoOpCode() {
+		return InstrucaoOpCode;
+	}
+	
 }

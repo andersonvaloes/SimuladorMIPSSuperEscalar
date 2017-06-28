@@ -126,6 +126,7 @@ public class InstrucaoIOpBle extends InstrucaoI implements Instrucao {
 				
 				if(nByte_/4 >= dataStructure_.getFilaDeIntrucao_().fila_.size()-1){
 					if(dataStructure_.getReorderBuffer_().getROBList().get(0).value/4 != nByte_/4 + 1){
+						//Ainda para implementar
 					}
 				}else{
 					if(dataStructure_.getReorderBuffer_().getROBList().get(1)._instrucao.getNbyte()/4 != dataStructure_.getReorderBuffer_().getROBList().get(0).value){
@@ -133,6 +134,7 @@ public class InstrucaoIOpBle extends InstrucaoI implements Instrucao {
 						//Apaga tudo
 						dataStructure_.getReservationStation().clearAll();
 						dataStructure_.getReorderBuffer_().clearAll();
+						dataStructure_.getRegisterStatus_().clearAll();
 					}else{
 					
 						dataStructure_.getReorderBuffer_().setBusy(h, false);
@@ -146,6 +148,7 @@ public class InstrucaoIOpBle extends InstrucaoI implements Instrucao {
 				
 				
 			}
+			if(dataStructure_.getReorderBuffer_().getROBList().size() > 0)
 			dataStructure_.getReorderBuffer_().getROBList().remove(0);
 		}
 	}

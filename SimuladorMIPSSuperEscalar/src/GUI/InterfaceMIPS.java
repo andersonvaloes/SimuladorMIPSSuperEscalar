@@ -417,7 +417,9 @@ public class InterfaceMIPS{
 	
 	
 	    public void actionPerformed(ActionEvent e) {
-	    	
+	    	//if(p.dataStructure.getFilaDeIntrucao_().fila_.size() <= p.dataStructure.sPointer)
+	    	System.out.println("Tamanho da fila: "+p.dataStructure.getFilaDeIntrucao_().fila_.size());
+	    	System.out.println("StackPointer: " + p.dataStructure.sPointer);
 	    	p.RunClock(_GUI);
 	    	
 	    }   
@@ -425,12 +427,18 @@ public class InterfaceMIPS{
 	
 	public class ClassListenerPlayFull implements ActionListener {
 		public InterfaceMIPS _GUI;
+		
 		ClassListenerPlayFull(InterfaceMIPS GUI){
 			_GUI = GUI;
 		}
 		
 	    public void actionPerformed(ActionEvent e) {
-	    	
+	    	int i = 0;
+	    	System.out.println("Comecou o Full");
+	    	while(p.dataStructure.getFilaDeIntrucao_().fila_.size() >= p.dataStructure.sPointer){
+	    		System.out.println(i++);
+	    		p.RunClock(_GUI);
+	    	}
 	    	
 	    }   
 	}
@@ -443,7 +451,7 @@ public class InterfaceMIPS{
 		}
 		
 	    public void actionPerformed(ActionEvent e) {
-	    	tableClock.setValueAt("Não salta", 4, 1);
+	    	tableClock.setValueAt("Nï¿½o salta", 4, 1);
 	    }   
 	}
 	
