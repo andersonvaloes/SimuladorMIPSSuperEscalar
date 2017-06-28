@@ -18,13 +18,15 @@ public class ProcessadorMips {
 	DataStructure dataStructure = new DataStructure(new FilaDeInstrucao(),
 									new Memory(), new Registers(), new RegisterStatus(),
 									new ReorderBuffer(), new ReservationStation());	
-	InterfaceMIPS GUI = new InterfaceMIPS();
+	InterfaceMIPS _GUI = new InterfaceMIPS();
 	
 	public ProcessadorMips(String arquivo) {
 		dataStructure.getFilaDeIntrucao_().setNaFilaDeInstrucao(arquivo, dataStructure);
 	}
 	
-	public void RunClock(){
+	public void RunClock(InterfaceMIPS GUI){
+		_GUI=GUI;
+		
 		ArrayList<ReorderBufferNode> robList = dataStructure.getReorderBuffer_().getROBList();
 		ArrayList<ReservationStationNode> rsLoadList = dataStructure.getReservationStation().getLoadList();
 		ArrayList<ReservationStationNode> rsAddList = dataStructure.getReservationStation().getAddList();
@@ -151,11 +153,11 @@ public class ProcessadorMips {
 		System.out.println("--------------------------------------------");
 		System.out.println("");
 		
-		GUI.setTableROB(dataStructure.getReorderBuffer_().getROBList());
-		GUI.setTableRS(dataStructure.getReservationStation().getLoadList(),dataStructure.getReservationStation().getAddList(),
+		_GUI.setTableROB(dataStructure.getReorderBuffer_().getROBList());
+		_GUI.setTableRS(dataStructure.getReservationStation().getLoadList(),dataStructure.getReservationStation().getAddList(),
 				dataStructure.getReservationStation().getMultList());
-		GUI.setTableRegs(dataStructure.getRegisterStatus_());
-		GUI.setTableMemoria(dataStructure.getMemory_());
+		_GUI.setTableRegs(dataStructure.getRegisterStatus_());
+		_GUI.setTableMemoria(dataStructure.getMemory_());
 		//GUI.setTableClock();
 		
 	}
