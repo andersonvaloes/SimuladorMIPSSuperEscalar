@@ -20,7 +20,7 @@ public class InstrucaoIOpBle extends InstrucaoI implements Instrucao {
 		if(dataStructure_.getRegisterStatus_().isBusy(rs_)){
 			int h = dataStructure_.getRegisterStatus_().getReorder(rs_);
 			if(!dataStructure_.getReorderBuffer_().getNodeID(h).busy){
-				rsNode.setVj(dataStructure_.getReorderBuffer_().getValue(h));
+				rsNode.setVj(dataStructure_.getReorderBuffer_().getNodeID(h).value);
 				rsNode.setQj(0);
 			}else{
 				rsNode.setQj(h);

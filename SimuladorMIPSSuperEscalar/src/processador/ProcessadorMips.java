@@ -20,7 +20,7 @@ public class ProcessadorMips {
 									new ReorderBuffer(), new ReservationStation());	
 	InterfaceMIPS _GUI = new InterfaceMIPS();
 	
-	int nclock = 0;
+	int nclock = 0,nInst=0;
 	
 	public ProcessadorMips(String arquivo) {
 		dataStructure.getFilaDeIntrucao_().setNaFilaDeInstrucao(arquivo, dataStructure);
@@ -29,6 +29,9 @@ public class ProcessadorMips {
 	public void RunClock(InterfaceMIPS GUI){
 		if(dataStructure.sPointer <= dataStructure.getFilaDeIntrucao_().fila_.size()){
 			_GUI=GUI;
+			
+			if(_GUI.getPred() !=4)
+				dataStructure.predType = _GUI.getPred();
 			
 			nclock++;
 			ArrayList<ReorderBufferNode> robList = dataStructure.getReorderBuffer_().getROBList();
@@ -92,7 +95,13 @@ public class ProcessadorMips {
 	
 			dataStructure.getReservationStation().execute();
 			dataStructure.getReservationStation().write();
+			
+			int tamanhoROB = robList.size();
 			dataStructure.getReorderBuffer_().commit();
+			if(tamanhoROB != robList.size()){
+				nInst++;
+			}
+			//Ver tamanho do rob antes do commit e depois do commit, se mudou soma uma no número de instruções concluidas
 			dataStructure.getFilaDeIntrucao_().issue();
 				
 			dataStructure.issued = null;
@@ -163,7 +172,7 @@ public class ProcessadorMips {
 					dataStructure.getReservationStation().getMultList());
 			_GUI.setTableRegs(dataStructure.getRegisterStatus_());
 			_GUI.setTableMemoria(dataStructure.getMemory_());
-			_GUI.setTableClock(dataStructure.sPointer,nclock);
+			_GUI.setTableClock(dataStructure.sPointer,nclock,nInst);
 		}
 	}
 	

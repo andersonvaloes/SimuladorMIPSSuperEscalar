@@ -40,9 +40,10 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class InterfaceMIPS{
-
+	
 	private JFrame frame;
 	private JLabel label;
+	private int pred = 4;
 
 	private ArrayList<ReorderBufferNode> _robList = new ArrayList<ReorderBufferNode>();
 	private Memory _memoria = new Memory();
@@ -67,6 +68,10 @@ public class InterfaceMIPS{
 	private JButton btnPrediNaoSalta;
 	private JButton btnPred1Bit;
 	private JButton btnPred2Bits;
+	
+	public int getPred(){
+		return pred;
+	}
 	
 	public void setTableROB(ArrayList<ReorderBufferNode> robList){
 		_robList=robList;
@@ -96,7 +101,7 @@ public class InterfaceMIPS{
 		
 		for (int i = 1; i < tableRegs.getRowCount(); i++){
 		      for(int j = 1; j < tableRegs.getColumnCount(); j++) {
-		    	  if (j!= 3 && j!= 5 && j!=7){
+		    	  if (j!= 3 && j!= 6 && j!=9){
 		    		  tableRegs.setValueAt("", i, j);
 		    	  }
 		      }
@@ -113,9 +118,12 @@ public class InterfaceMIPS{
 		}
 	}
 	
-	public void setTableClock(int sPointer, int clock){
+	public void setTableClock(int sPointer, int clock, int nInst){
 		tableClock.setValueAt(sPointer, 1, 1);
 		tableClock.setValueAt(clock, 0, 1);
+		tableClock.setValueAt(nInst, 2, 1);
+		if(nInst!=0)
+			tableClock.setValueAt(clock/nInst, 3, 1);
 	}
 
 	
@@ -418,8 +426,8 @@ public class InterfaceMIPS{
 	
 	    public void actionPerformed(ActionEvent e) {
 	    	//if(p.dataStructure.getFilaDeIntrucao_().fila_.size() <= p.dataStructure.sPointer)
-	    	System.out.println("Tamanho da fila: "+p.dataStructure.getFilaDeIntrucao_().fila_.size());
-	    	System.out.println("StackPointer: " + p.dataStructure.sPointer);
+	    	//System.out.println("Tamanho da fila: "+p.dataStructure.getFilaDeIntrucao_().fila_.size());
+	    	//System.out.println("StackPointer: " + p.dataStructure.sPointer);
 	    	p.RunClock(_GUI);
 	    	
 	    }   
@@ -451,7 +459,8 @@ public class InterfaceMIPS{
 		}
 		
 	    public void actionPerformed(ActionEvent e) {
-	    	tableClock.setValueAt("N�o salta", 4, 1);
+	    	tableClock.setValueAt("Nao salta", 4, 1);
+	    	pred=0;
 	    }   
 	}
 	
@@ -464,6 +473,7 @@ public class InterfaceMIPS{
 		
 	    public void actionPerformed(ActionEvent e) {
 	    	tableClock.setValueAt("Pred. 1 bit", 4, 1);
+	    	pred=1;
 	    }   
 	}
 	
@@ -476,6 +486,7 @@ public class InterfaceMIPS{
 		
 	    public void actionPerformed(ActionEvent e) {
 	    	tableClock.setValueAt("Pred. 2 bits", 4, 1);
+	    	pred=2;
 	    }   
 	}
 	
